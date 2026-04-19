@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SkillForge - Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<!-- Universal Theme Toggle -->
+ 
+<div class="universal-theme-toggle" onclick="toggleTheme()">
+  <i class="fa-solid fa-moon" id="themeIcon"></i>
+</div>
+
+<div class="horizontal-dashboard">
+
+  <!-- Header -->
+  <header class="dashboard-header">
+    <div class="header-brand">
+      <i class="fa-solid fa-graduation-cap"></i>
+      <h3>SkillForge</h3>
+    </div>
+    
+    <nav class="header-nav">
+      <button class="active" onclick="showTab('home')">
+        <i class="fa-solid fa-home"></i> Home
+      </button>
+      <button onclick="showTab('courses')">
+        <i class="fa-solid fa-book"></i> Courses
+      </button>
+      <button onclick="showTab('progress')">
+        <i class="fa-solid fa-chart-line"></i> Progress
+      </button>
+      <button onclick="showTab('profile')">
+        <i class="fa-solid fa-user"></i> Profile
+      </button>
+      <button onclick="showTab('settings')">
+        <i class="fa-solid fa-cog"></i> Settings
+      </button> 
+    </nav>
+
+    <div class="header-actions">
+      
+      <button onclick="logout()" class="logout-btn">
+        <i class="fa-solid fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+  </header>
+
+  <!-- Content Area -->
+  <main class="horizontal-content">
+
+    <!-- HOME TAB -->
+    <div id="home" class="horizontal-tab active">
+      <div class="welcome-section">
+        <h1>Welcome back! 👋</h1>
+        <p class="subtitle">Continue your learning journey</p>
+      </div>
+
+      <div class="horizontal-stats">
+        <div class="horizontal-stat-card">
+          <div class="horizontal-stat-icon">
+            <i class="fa-solid fa-book-open"></i>
+          </div>
+          <div class="horizontal-stat-info">
+            <h3>12</h3>
+            <p>Courses Enrolled</p>
+          </div>
+        </div>
+        
+        <div class="horizontal-stat-card">
+          <div class="horizontal-stat-icon">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <div class="horizontal-stat-info">
+            <h3>8</h3>
+            <p>Completed</p>
+          </div>
+        </div>
+        
+        <div class="horizontal-stat-card">
+          <div class="horizontal-stat-icon">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <div class="horizontal-stat-info">
+            <h3>24h</h3>
+            <p>Learning Time</p>
+          </div>
+        </div>
+        
+        <div class="horizontal-stat-card">
+          <div class="horizontal-stat-icon">
+            <i class="fa-solid fa-fire"></i>
+          </div>
+          <div class="horizontal-stat-info">
+            <h3>7</h3>
+            <p>Day Streak</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="horizontal-activity">
+        <div class="activity-grid">
+          <div class="recent-activity-list">
+            <h3>Recent Activity</h3>
+            <div class="horizontal-activity-item">
+              <div class="activity-icon">
+                <i class="fa-solid fa-check-circle"></i>
+              </div>
+              <div class="activity-details">
+                <h4>Completed JavaScript Basics</h4>
+                <span>2 hours ago</span>
+              </div>
+            </div>
+            <div class="horizontal-activity-item">
+              <div class="activity-icon">
+                <i class="fa-solid fa-play-circle"></i>
+              </div>
+              <div class="activity-details">
+                <h4>Started React Fundamentals</h4>
+                <span>Yesterday</span>
+              </div>
+            </div>
+            <div class="horizontal-activity-item">
+              <div class="activity-icon">
+                <i class="fa-solid fa-award"></i>
+              </div>
+              <div class="activity-details">
+                <h4>Earned Quick Learner Badge</h4>
+                <span>2 days ago</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="achievement-sidebar">
+            <h3>Recent Achievements</h3>
+            <div class="achievement-badge">
+              <i class="fa-solid fa-medal"></i>
+              <span>First Steps</span>
+            </div>
+            <div class="achievement-badge">
+              <i class="fa-solid fa-star"></i>
+              <span>Quick Learner</span>
+            </div>
+            <div class="achievement-badge">
+              <i class="fa-solid fa-fire"></i>
+              <span>7-Day Streak</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COURSES TAB -->
+    <div id="courses" class="horizontal-tab">
+      <h2>My Courses</h2>
+      <div class="horizontal-courses">
+        <div class="horizontal-course-card">
+          <div class="course-image">
+            <img src="https://via.placeholder.com/400x250/667eea/ffffff?text=JavaScript" alt="JavaScript">
+          </div>
+          <div class="course-content">
+            <h3>JavaScript Basics</h3>
+            <p>Learn the fundamentals of JavaScript programming from scratch</p>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 75%"></div>
+            </div>
+            <span class="progress-text">75% Complete</span>
+          </div>
+        </div>
+        
+        <div class="horizontal-course-card">
+          <div class="course-image">
+            <img src="https://via.placeholder.com/400x250/764ba2/ffffff?text=React" alt="React">
+          </div>
+          <div class="course-content">
+            <h3>React Fundamentals</h3>
+            <p>Build modern web applications with React and hooks</p>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 30%"></div>
+            </div>
+            <span class="progress-text">30% Complete</span>
+          </div>
+        </div>
+        
+        <div class="horizontal-course-card">
+          <div class="course-image">
+            <img src="https://via.placeholder.com/400x250/10b981/ffffff?text=CSS" alt="CSS">
+          </div>
+          <div class="course-content">
+            <h3>Advanced CSS & Animations</h3>
+            <p>Master modern CSS techniques and animations</p>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 90%"></div>
+            </div>
+            <span class="progress-text">90% Complete</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRESS TAB -->
+    <div id="progress" class="horizontal-tab">
+      <h2>Your Learning Progress</h2>
+      <div class="activity-grid">
+        <div class="recent-activity-list">
+          <h3>Weekly Activity</h3>
+          <div class="chart-placeholder">
+            <i class="fa-solid fa-chart-bar"></i>
+            <p>Interactive progress charts coming soon</p>
+          </div>
+        </div>
+        
+        <div class="achievement-sidebar">
+          <h3>All Achievements</h3>
+          <div class="achievement-badge">
+            <i class="fa-solid fa-medal"></i>
+            <span>First Steps</span>
+          </div>
+          <div class="achievement-badge">
+            <i class="fa-solid fa-star"></i>
+            <span>Quick Learner</span>
+          </div>
+          <div class="achievement-badge">
+            <i class="fa-solid fa-fire"></i>
+            <span>7-Day Streak</span>
+          </div>
+          <div class="achievement-badge">
+            <i class="fa-solid fa-trophy"></i>
+            <span>Course Master</span>
+          </div>
+          <div class="achievement-badge">
+            <i class="fa-solid fa-rocket"></i>
+            <span>Fast Learner</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE TAB -->
+    <div id="profile" class="horizontal-tab">
+      <h2>Profile Settings</h2>
+      <div class="profile-section">
+        <div class="profile-avatar">
+          <img id="profilePic" src="https://via.placeholder.com/150" alt="Profile">
+          <div class="avatar-upload">
+            <input type="file" id="avatarInput" onchange="previewImage(event)" accept="image/*" style="display: none;">
+            <button onclick="document.getElementById('avatarInput').click()">
+              <i class="fa-solid fa-camera"></i> Change Photo
+            </button>
+          </div>
+        </div>
+        
+        <div class="profile-form">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input id="name" placeholder="Enter your full name">
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="Enter your email">
+          </div>
+          
+          <div class="form-group">
+            <label for="year">Academic Year</label>
+            <input id="year" placeholder="e.g., 3rd Year">
+          </div>
+          
+          <div class="form-group">
+            <label for="goal">Learning Goals</label>
+            <input id="goal" placeholder="What do you want to achieve?">
+          </div>
+          
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input id="phone" type="tel" placeholder="Enter your phone number">
+          </div>
+          
+          <button class="save-btn" onclick="updateProfile()">
+            <i class="fa-solid fa-save"></i> Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS TAB -->
+    <div id="settings" class="horizontal-tab">
+      <h2>Settings</h2>
+      <div class="settings-section">
+        <div class="setting-item">
+          <div class="setting-info">
+            <h3>Dark Mode</h3>
+            <p>Toggle between light and dark themes</p>
+          </div>
+          <button class="setting-toggle" onclick="toggleTheme()">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+        
+        <div class="setting-item">
+          <div class="setting-info">
+            <h3>Notifications</h3>
+            <p>Manage your notification preferences</p>
+          </div>
+          <button class="setting-btn" onclick="alert('Notifications coming soon')">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+        
+        <div class="setting-item">
+          <div class="setting-info">
+            <h3>Privacy</h3>
+            <p>Control your privacy settings</p>
+          </div>
+          <button class="setting-btn" onclick="alert('Privacy settings coming soon')">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+        
+        <div class="setting-item">
+          <div class="setting-info">
+            <h3>Help & Support</h3>
+            <p>Get help with your account</p>
+          </div>
+          <button class="setting-btn" onclick="alert('Support coming soon')">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Firebase scripts -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+<script src="firebase.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>

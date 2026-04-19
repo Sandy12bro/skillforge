@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillForge - Profile Settings</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="signup-container" id="profileContainer">
+        <!-- Dashboard Header -->
+        <header class="signup-header">
+            <div class="header-brand">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <h3>Profile Settings 🚀</h3>
+            </div>
+        </header>
+
+        <!-- Profile Content -->
+        <div class="signup-content-grid">
+            <div class="panel profile-panel">
+                <div class="panel-content">
+                    <div class="profile-form">
+                        <h2 class="form-title">Edit Profile</h2>
+                        <p class="form-subtitle">Update your personal information</p>
+                        
+                        <form id="profileForm">
+                            <div class="form-columns">
+                                <!-- Left Column -->
+                                <div class="form-column">
+                                    <div class="input-group">
+                                        <i class="fas fa-user input-icon"></i>
+                                        <input type="text" id="fullName" placeholder="Full Name" value="John Doe">
+                                    </div>
+                                    
+                                    <div class="input-group">
+                                        <i class="fas fa-calendar input-icon"></i>
+                                        <input type="number" id="age" placeholder="Age" value="25" min="16" max="100">
+                                    </div>
+                                    
+                                    <div class="input-group">
+                                        <i class="fas fa-envelope input-icon"></i>
+                                        <input type="email" id="email" placeholder="Email Address" value="john.doe@example.com">
+                                    </div>
+                                    
+                                    <div class="input-group">
+                                        <i class="fas fa-lock input-icon"></i>
+                                        <i class="fa-solid fa-eye password-toggle" onclick="togglePassword('currentPassword', this)"></i>
+                                        <input type="password" id="currentPassword" placeholder="Current Password">
+                                    </div>
+                                </div>
+                                
+                                <!-- Right Column -->
+                                <div class="form-column">
+                                    <div class="input-group">
+                                        <i class="fas fa-phone input-icon"></i>
+                                        <input type="tel" id="phone" placeholder="Phone Number" value="+1 234 567 8900">
+                                    </div>
+                                    
+                                    <div class="input-group">
+                                        <i class="fas fa-book input-icon"></i>
+                                        <input type="text" id="year" placeholder="Academic Year" value="3rd Year">
+                                    </div>
+                                    
+                                    <div class="input-group">
+                                        <i class="fas fa-target input-icon"></i>
+                                        <input type="text" id="goal" placeholder="Learning Goal" value="Become Full Stack Developer">
+                                    </div>
+                                    
+                                    <div class="input-group">
+                                        <i class="fas fa-user-circle input-icon"></i>
+                                        <input type="text" id="username" placeholder="Username" value="johndoe">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="signup-btn">
+                                <i class="fas fa-save"></i>
+                                Save Changes
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
