@@ -2,74 +2,34 @@
 
 :root {
   --bg: #e5e5e5;
-  --text: #000000;
+  --text: #0f0f0f;
   --card: #ffffff;
-  --card-hover: #f9fafb;
   --border: #000000;
-  --shadow: #000000;
-  --muted: #6b7280;
-  
-  /* Adaptive Tints (Light Mode) */
-  --tint-blue: #eff6ff;
-  --tint-red: #fef2f2;
-  --tint-yellow: #fefce8;
-  --tint-green: #f0fdf4;
-  --tint-purple: #f5f3ff;
-  
-  --primary: #2563eb;
-  --accent: #facc15;
-  --danger: #ef4444;
-
-  --hero-start: #3B82F6;
-  --hero-end: #2563EB;
+  --muted: #4b5563;
+  --primary: #3B82F6;
+  --accent: #FACC15;
+  --danger: #EF4444;
 }
 
 .dark {
-  --bg: #0a0a0a;
+  --bg: #0d0d0d;
   --text: #ffffff;
-  --card: #171717;
-  --card-hover: #1f1f1f;
-  --border: #ffffff;
-  --shadow: #ffffff;
-  --muted: #a1a1aa;
-
-  /* Adaptive Tints (Dark Mode - subtle glows) */
-  --tint-blue: rgba(37, 99, 235, 0.1);
-  --tint-red: rgba(239, 68, 68, 0.1);
-  --tint-yellow: rgba(250, 204, 21, 0.1);
-  --tint-green: rgba(34, 197, 94, 0.1);
-  --tint-purple: rgba(139, 92, 246, 0.1);
-
-  --primary: #3b82f6;
-  --accent: #fbbf24;
-  --danger: #f87171;
-
-  --hero-start: #0f172a;
-  --hero-end: #020617;
+  --card: #141414;
+  --border: #000000;
+  --muted: #9ca3af;
 }
 
 @theme {
   --color-background: var(--bg);
   --color-foreground: var(--text);
   --color-card: var(--card);
-  --color-card-hover: var(--card-hover);
   --color-border: var(--border);
-  --color-shadow: var(--shadow);
   --color-muted: var(--muted);
-  
-  --color-hero-start: var(--hero-start);
-  --color-hero-end: var(--hero-end);
-  
-  --color-tint-blue: var(--tint-blue);
-  --color-tint-red: var(--tint-red);
-  --color-tint-yellow: var(--tint-yellow);
-  --color-tint-green: var(--tint-green);
-  --color-tint-purple: var(--tint-purple);
   
   --color-brand-blue: var(--primary);
   --color-brand-yellow: var(--accent);
   --color-brand-red: var(--danger);
-  --color-brand-green: #22c55e;
+  --color-brand-green: #22C55E;
   
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -87,44 +47,48 @@
   }
   
   .neo-shadow {
-    @apply shadow-[4px_4px_0px_var(--shadow)];
+    @apply shadow-[4px_4px_0px_var(--border)];
   }
   
   .neo-card {
-    @apply bg-card text-foreground border-2 border-border shadow-[4px_4px_0px_var(--shadow)] rounded-[8px] overflow-hidden transition-all duration-200;
-  }
-  
-  .neo-button {
-    @apply border-2 border-border shadow-[2px_2px_0px_var(--shadow)] rounded-md px-6 py-2 font-black uppercase tracking-wider transition-all duration-150;
-    @apply hover:-translate-y-[2px] active:translate-y-[1px] active:shadow-none;
+    @apply border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px] overflow-hidden transition-all duration-200;
   }
   
   .neo-card-yellow {
-    @apply bg-brand-yellow text-black border-2 border-border shadow-[4px_4px_0px_var(--shadow)] rounded-[8px];
+    @apply bg-brand-yellow text-black border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px];
   }
   
   .neo-card-blue {
-    @apply bg-brand-blue text-white border-2 border-border shadow-[4px_4px_0px_var(--shadow)] rounded-[8px];
+    @apply bg-brand-blue text-white border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px];
   }
   
   .neo-card-red {
-    @apply bg-brand-red text-white border-2 border-border shadow-[4px_4px_0px_var(--shadow)] rounded-[8px];
+    @apply bg-brand-red text-white border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px];
   }
   
   .neo-card-white {
-    @apply bg-card text-foreground border-2 border-border shadow-[4px_4px_0px_var(--shadow)] rounded-[8px];
+    @apply bg-card text-foreground border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px];
+  }
+  
+  .neo-card-dark {
+    @apply bg-card text-foreground border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[8px];
+  }
+
+  .neo-button {
+    @apply border-2 border-border shadow-[2px_2px_0px_var(--border)] rounded-md px-6 py-2 font-black uppercase tracking-wider transition-all duration-150;
+    @apply hover:-translate-y-[2px] active:translate-y-[1px] active:shadow-none;
   }
   
   .neo-button-yellow {
-    @apply bg-brand-yellow text-black border-2 border-border shadow-[2px_2px_0px_var(--shadow)] rounded-md;
+    @apply bg-brand-yellow text-black border-2 border-border shadow-[2px_2px_0px_var(--border)] rounded-md;
   }
   
   .neo-button-blue {
-    @apply bg-brand-blue text-white border-2 border-border shadow-[2px_2px_0px_var(--shadow)] rounded-md;
+    @apply bg-brand-blue text-white border-2 border-border shadow-[2px_2px_0px_var(--border)] rounded-md;
   }
   
   .neo-button-white {
-    @apply bg-card text-foreground border-2 border-border shadow-[2px_2px_0px_var(--shadow)] rounded-md;
+    @apply bg-card text-foreground border-2 border-border shadow-[2px_2px_0px_var(--border)] rounded-md;
   }
 }
 

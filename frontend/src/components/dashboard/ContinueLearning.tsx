@@ -27,13 +27,13 @@ export default function ContinueLearning() {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {filteredTopics.map((topic, i) => (
-          <div key={i} className={`neo-card p-6 flex flex-col justify-between hover:bg-card-hover hover:-translate-y-2 transition-all duration-300 ${getTopicBorder(topic.title)} ${topic.locked ? "opacity-50 grayscale" : "cursor-pointer"}`}>
+          <div key={i} className={`neo-card bg-white p-6 flex flex-col justify-between hover:bg-gray-50 hover:-translate-y-2 transition-all duration-300 ${getTopicBorder(topic.title)} ${topic.locked ? "opacity-50 grayscale" : "cursor-pointer"}`}>
             <div>
               <div className="flex justify-between items-center mb-5">
-                <h3 className="font-black text-lg uppercase tracking-tight text-foreground">{topic.title}</h3>
-                <span className="font-black text-xs px-2 py-1 bg-foreground text-background rounded-sm">{topic.progress}%</span>
+                <h3 className="font-black text-lg uppercase tracking-tight">{topic.title}</h3>
+                <span className="font-black text-xs px-2 py-1 bg-black text-white rounded-sm">{topic.progress}%</span>
               </div>
-              <div className="w-full h-4 bg-background border-2 border-border rounded-full overflow-hidden mb-8">
+              <div className="w-full h-4 bg-gray-100 border-2 border-black rounded-full overflow-hidden mb-8">
                 <div 
                   className={`h-full ${topic.color} transition-all duration-700 ease-out`} 
                   style={{ width: `${topic.progress}%` }}
@@ -42,9 +42,9 @@ export default function ContinueLearning() {
             </div>
             <button 
               onClick={() => updateTopicProgress(topic.title, 10)}
-              className={`neo-button w-full flex items-center justify-center gap-2 text-xs py-2 ${
-                topic.locked ? "bg-muted text-card cursor-not-allowed border-border" : 
-                topic.progress === 100 ? "bg-brand-green text-black" : "bg-card hover:bg-brand-yellow text-foreground hover:text-black"
+              className={`neo-button w-full flex items-center justify-center gap-2 text-xs py-2 shadow-[2px_2px_0px_#000] ${
+                topic.locked ? "bg-gray-200 text-muted cursor-not-allowed border-black" : 
+                topic.progress === 100 ? "bg-brand-green text-black" : "bg-white hover:bg-brand-yellow text-black"
               }`}
               disabled={topic.locked || topic.progress === 100}
             >
