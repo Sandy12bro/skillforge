@@ -9,19 +9,13 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className={`w-full py-3 px-4 border-2 border-black flex items-center justify-between transition-all duration-200 shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover:shadow-[6px_6px_0px_#000] active:translate-y-0.5 active:shadow-none ${
-        theme === "dark" 
-          ? "bg-brand-yellow text-black" 
-          : "bg-white text-black underline decoration-4 decoration-brand-yellow"
-      }`}
+      className="p-2 neo-card neo-card-white hover:-translate-y-1 active:translate-y-0.5 active:shadow-none transition-all flex items-center justify-center shadow-[4px_4px_0px_#000]"
+      aria-label="Toggle Theme"
     >
-      <span className="font-black uppercase tracking-tighter text-sm">
-        {theme === "dark" ? "Light Mode" : "Dark Mode"}
-      </span>
-      {theme === "dark" ? (
-        <Sun size={20} className="fill-current" />
+      {theme === "light" ? (
+        <Moon size={20} className="text-black" />
       ) : (
-        <Moon size={20} className="fill-current" />
+        <Sun size={20} className="text-black" />
       )}
     </button>
   );

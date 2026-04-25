@@ -17,26 +17,27 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as Theme | null;
-    const initialTheme = savedTheme || "dark";
-    
-    setTheme(initialTheme);
-    document.documentElement.classList.remove("light", "dark");
-    document.documentElement.classList.add(initialTheme);
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.classList.add(savedTheme);
+    } else {
+      // Default to dark
+      document.documentElement.classList.add("dark");
+    }
     setMounted(true);
   }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
-    
-    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.remove(theme);
     document.documentElement.classList.add(newTheme);
     localStorage.setItem("theme", newTheme);
   };
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div className={mounted ? "" : "invisible"}>
+      <div style={{ opacity: mounted ? 1 : 0 }}>
         {children}
       </div>
     </ThemeContext.Provider>
