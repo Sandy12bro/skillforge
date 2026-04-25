@@ -35,12 +35,11 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem("theme", newTheme);
   };
 
-  // Prevent hydration mismatch
-  if (!mounted) return <div style={{ visibility: "hidden" }}>{children}</div>;
-
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
+      <div style={{ opacity: mounted ? 1 : 0 }}>
+        {children}
+      </div>
     </ThemeContext.Provider>
   );
 };
