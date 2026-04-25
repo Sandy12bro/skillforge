@@ -52,8 +52,8 @@ export default function DailyChallenge() {
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-3">
-            <span className="bg-background text-foreground px-2 py-1 text-xs font-black uppercase border-2 border-border shadow-[2px_2px_0px_var(--border)]">Daily Challenge</span>
-            <div className="flex items-center gap-1 text-white bg-black px-2 py-1 border-2 border-white text-xs font-black shadow-[2px_2px_0px_rgba(0,0,0,0.5)]">
+            <span className="bg-background text-foreground px-2 py-1 text-xs font-black uppercase border-2 border-border shadow-[2px_2px_0px_var(--border)] rounded-md">Daily Challenge</span>
+            <div className="flex items-center gap-1 text-white bg-black px-2 py-1 border-2 border-white text-xs font-black shadow-[2px_2px_0px_rgba(0,0,0,0.5)] rounded-md">
               <Timer size={14} className={isActive ? "animate-pulse text-brand-yellow" : ""} /> 
               {formatTime(timeLeft)}
             </div>

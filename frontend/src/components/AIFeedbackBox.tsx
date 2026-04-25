@@ -4,7 +4,7 @@ export default function AIFeedbackBox() {
   return (
     <div className="neo-card neo-card-dark p-6 relative border-brand-blue">
       {/* Absolute badge */}
-      <div className="absolute -top-3 -right-3 bg-brand-blue neo-border text-white px-3 py-1 font-bold shadow-[2px_2px_0px_#000000] rotate-3 flex items-center gap-1">
+      <div className="absolute -top-3 -right-3 bg-brand-blue neo-border rounded-md text-white px-3 py-1 font-bold shadow-[2px_2px_0px_#000000] rotate-3 flex items-center gap-1">
         <Sparkles size={16} /> AI INSIGHT
       </div>
 
