@@ -26,7 +26,7 @@ export default function LandingPage() {
       {/* Navbar Minimal */}
       <nav className="w-full p-6 flex justify-between items-center border-b-2 border-border max-w-7xl mx-auto shrink-0">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 neo-card neo-card-yellow flex items-center justify-center font-bold text-xl">
+          <div className="w-10 h-10 neo-card-yellow flex items-center justify-center font-black text-xl text-black">
             CA
           </div>
           <span className="text-2xl font-black text-foreground tracking-widest uppercase">CodeArena</span>
@@ -49,9 +49,9 @@ export default function LandingPage() {
 
         {/* Sequence 2: Feature Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full my-6 md:my-0 flex-1 content-center">
-          <div className="neo-card bg-card border-brand-blue p-6 lg:p-8 hover:-translate-y-2 hover:shadow-[6px_6px_0px_#3B82F6] transition-all flex flex-col justify-center h-full">
-            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-brand-blue border-2 border-border rounded-full flex items-center justify-center mb-4 shadow-[2px_2px_0px_var(--border)]">
-              <Terminal className="text-foreground" size={24} />
+          <div className="neo-card bg-card border-brand-blue p-6 lg:p-8 hover:-translate-y-2 hover:shadow-[6px_6px_0px_#1d4ed8] transition-all flex flex-col justify-center h-full">
+            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-brand-blue border-2 border-border rounded-full flex items-center justify-center mb-4 shadow-[2px_2px_0px_#1d4ed8]">
+              <Terminal className="text-white" size={24} />
             </div>
             <h2 className="text-xl lg:text-2xl font-black text-foreground uppercase tracking-widest mb-3">Execution Visualizer</h2>
             <p className="text-sm lg:text-base text-muted font-bold leading-relaxed">
@@ -59,8 +59,8 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="neo-card bg-card border-brand-yellow p-6 lg:p-8 hover:-translate-y-2 hover:shadow-[6px_6px_0px_#FACC15] transition-all flex flex-col justify-center h-full">
-            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-brand-yellow border-2 border-border rounded-full flex items-center justify-center mb-4 shadow-[2px_2px_0px_var(--border)]">
+          <div className="neo-card bg-card border-brand-yellow p-6 lg:p-8 hover:-translate-y-2 hover:shadow-[6px_6px_0px_#b45309] transition-all flex flex-col justify-center h-full">
+            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-brand-yellow border-2 border-border rounded-full flex items-center justify-center mb-4 shadow-[2px_2px_0px_#b45309]">
               <Bug className="text-black" size={24} />
             </div>
             <h2 className="text-xl lg:text-2xl font-black text-foreground uppercase tracking-widest mb-3">Debug Playground</h2>
@@ -69,9 +69,9 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="neo-card bg-card border-brand-red p-6 lg:p-8 hover:-translate-y-2 hover:shadow-[6px_6px_0px_#EF4444] transition-all flex flex-col justify-center h-full">
-            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-brand-red border-2 border-border rounded-full flex items-center justify-center mb-4 shadow-[2px_2px_0px_var(--border)]">
-              <AlertTriangle className="text-foreground" size={24} />
+          <div className="neo-card bg-card border-brand-red p-6 lg:p-8 hover:-translate-y-2 hover:shadow-[6px_6px_0px_#b91c1c] transition-all flex flex-col justify-center h-full">
+            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-brand-red border-2 border-border rounded-full flex items-center justify-center mb-4 shadow-[2px_2px_0px_#b91c1c]">
+              <AlertTriangle className="text-white" size={24} />
             </div>
             <h2 className="text-xl lg:text-2xl font-black text-foreground uppercase tracking-widest mb-3">Error Explainer</h2>
             <p className="text-sm lg:text-base text-muted font-bold leading-relaxed">

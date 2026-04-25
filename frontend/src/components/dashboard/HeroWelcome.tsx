@@ -10,7 +10,7 @@ export default function HeroWelcome({ userName }: { userName: string }) {
   const nextTopic = topics.find(t => t.progress < 100 && !t.locked) || topics[0];
 
   return (
-    <div className="p-8 relative overflow-hidden mb-10 rounded-[8px] border-2 border-black shadow-[6px_6px_0px_#000] transition-all" style={{ background: 'linear-gradient(135deg, #3B82F6, #2563EB)' }}>
+    <div className="p-8 relative overflow-hidden mb-10 rounded-[8px] border-2 border-black shadow-[6px_6px_0px_#000] transition-all bg-brand-blue">
       {/* Decorative brutalist background element */}
       <div className="absolute top-0 right-0 w-40 h-40 bg-brand-yellow border-l-4 border-b-4 border-black -translate-y-1/4 translate-x-1/4 rotate-12 opacity-90"></div>
       

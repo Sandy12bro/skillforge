@@ -23,7 +23,7 @@ export default function MentorSuggestions() {
           <div 
             key={i} 
             onClick={() => openModal(sug.modal)}
-            className="neo-card p-6 border-primary/20 relative overflow-hidden group hover:border-primary hover:-translate-y-2 cursor-pointer transition-all duration-300"
+            className="neo-card p-6 border-brand-blue/20 relative overflow-hidden group hover:border-brand-blue hover:-translate-y-2 hover:shadow-[6px_6px_0px_#1d4ed8] cursor-pointer transition-all duration-300"
           >
             <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-30 transition-opacity text-primary">
               <Sparkles size={48} />

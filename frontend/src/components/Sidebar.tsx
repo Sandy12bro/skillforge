@@ -17,7 +17,7 @@ export default function Sidebar() {
   return (
     <aside className="w-64 min-h-screen bg-card border-r-2 border-border p-6 flex flex-col gap-10">
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 bg-brand-yellow border-2 border-black flex items-center justify-center font-black text-xl shadow-[2px_2px_0px_#000]">
+        <div className="w-10 h-10 bg-brand-yellow border-2 border-black flex items-center justify-center font-black text-xl shadow-[2px_2px_0px_#000] text-black">
           CA
         </div>
         <h1 className="text-2xl font-black tracking-tighter uppercase italic">CodeArena</h1>

@@ -23,7 +23,7 @@ export default function StatsGrid() {
         <div 
           key={i} 
           onClick={() => openModal("Stat Details", stat)}
-          className={`neo-card p-6 flex items-center gap-5 hover:-translate-y-2 hover:rotate-1 transition-all duration-300 cursor-pointer group`}
+          className={`neo-card p-6 flex items-center gap-5 hover:-translate-y-2 hover:rotate-1 transition-all duration-300 cursor-pointer group hover:shadow-[6px_6px_0px_currentColor] ${stat.color.replace('text-', 'shadow-')}`}
         >
           <div className="p-4 bg-background border-2 border-border rounded-md group-hover:bg-card group-hover:scale-110 transition-all">
             <stat.icon size={26} className={stat.color} />

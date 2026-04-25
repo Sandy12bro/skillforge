@@ -24,13 +24,13 @@ export default function AIFeedbackBox() {
           </div>
         </div>
 
-        <div className="flex items-start gap-5 bg-purple-500/10 border-2 border-purple-500/50 p-5 rounded-md shadow-[2px_2px_0px_#000]">
-          <div className="bg-background border-2 border-purple-500 p-2 rounded-md shrink-0">
-            <AlertTriangle className="text-purple-500" size={20} />
+        <div className="flex items-start gap-5 bg-brand-blue/5 border-2 border-brand-blue/30 p-5 rounded-md shadow-[3px_3px_0px_#1d4ed8]">
+          <div className="bg-background border-2 border-brand-blue p-2 rounded-md shrink-0">
+            <AlertTriangle className="text-brand-blue" size={20} />
           </div>
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="bg-purple-500 text-white text-[9px] font-black px-2 py-0.5 rounded-sm tracking-widest uppercase">NEXT STEP</span>
+              <span className="bg-brand-blue text-white text-[9px] font-black px-2 py-0.5 rounded-sm tracking-widest uppercase">UPGRADE PATH</span>
               <h3 className="font-black uppercase text-xs tracking-wider font-mono">Matrix Traversal</h3>
             </div>
             <p className="text-sm font-black opacity-80 leading-relaxed uppercase tracking-tight">Time complexity was O(N^3). Refactor using memoization to hit O(N^2).</p>
