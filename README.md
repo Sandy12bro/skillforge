@@ -187,14 +187,13 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 #### 👥 **Our Amazing Team**
 
 **👑 Team Leader: Sanskar Bhasme**
-- Project Management & DevOps
 
 **🎨 Frontend Team:**
-- Prachi Jadhav - UI/UX Design
-- Bhakti Mandal - Frontend Development
+- Prachi Jadhav
+- Bhakti Mandal
 
 **⚡ Backend Team:**
-- Sneha Jain - API Development & Database
+- Sneha Jain
 
 ---
 
