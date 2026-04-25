@@ -39,7 +39,7 @@ export default function ProfilePage() {
                     onClick={logout}
                     className="neo-button neo-card-red py-3 px-8 text-lg font-black tracking-widest hover:-translate-y-1 block"
                   >
-                    TERMINATE SESSION
+                    LOG OUT
                   </button>
                 </div>
               </div>
