@@ -17,11 +17,13 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as Theme | null;
+    document.documentElement.classList.remove("light", "dark");
+    
     if (savedTheme) {
       setTheme(savedTheme);
       document.documentElement.classList.add(savedTheme);
     } else {
-      // Default to dark
+      setTheme("dark");
       document.documentElement.classList.add("dark");
     }
     setMounted(true);
