@@ -26,9 +26,9 @@ function DashboardContent() {
   const userName = user?.displayName?.split(" ")[0] || "Maker";
 
   return (
-    <div className="flex min-h-screen bg-[#e5e5e5] text-foreground font-sans">
+    <div className="flex min-h-screen bg-background text-foreground font-sans">
       <Sidebar />
-      <main className="flex-1 p-10 overflow-y-auto">
+      <main className="flex-1 p-10 overflow-y-auto bg-background">
         <div className="max-w-7xl mx-auto relative content-animate">
           <TopNavbar />
           
@@ -47,7 +47,7 @@ function DashboardContent() {
             
             <div className="lg:col-span-1 flex flex-col gap-12">
               <ActivityFeed />
-              <div className="neo-card bg-white p-7 shadow-[6px_6px_0px_#000]">
+              <div className="neo-card p-7">
                 <h2 className="text-xl font-black uppercase mb-6 flex items-center gap-2">
                   <span className="w-2 h-8 bg-brand-blue inline-block"></span>
                   Leaderboard
