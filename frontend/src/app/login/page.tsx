@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { auth, googleProvider } from "../../lib/firebase";
 import { useAuth } from "../../context/AuthContext";
 import { Eye, EyeOff } from "lucide-react";
+import ThemeToggle from "../../components/ThemeToggle";
 
 export default function AuthPage() {
   const { user, loading } = useAuth();
@@ -92,7 +93,10 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4 relative">
+      <div className="absolute top-6 right-6">
+        <ThemeToggle />
+      </div>
       <div className="max-w-md w-full neo-card bg-card border-2 border-brand-yellow shadow-[8px_8px_0px_#FACC15] p-8 flex flex-col items-center hover:translate-x-[2px] transition-transform duration-300">
         <div className="w-16 h-16 neo-card neo-card-yellow flex items-center justify-center font-black text-3xl mb-6 shadow-[4px_4px_0px_#000]">
           CA

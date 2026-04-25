@@ -5,6 +5,7 @@ import { Terminal, Bug, AlertTriangle } from "lucide-react";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
+import ThemeToggle from "../components/ThemeToggle";
 
 export default function LandingPage() {
   const { user, loading } = useAuth();
@@ -30,6 +31,7 @@ export default function LandingPage() {
           </div>
           <span className="text-2xl font-black text-foreground tracking-widest uppercase">CodeArena</span>
         </div>
+        <ThemeToggle />
       </nav>
 
       {/* Hero Section: dynamically fills remaining screen height */}
