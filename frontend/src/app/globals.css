@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-blue: var(--primary);
-  --color-brand-yellow: var(--accent);
+  --color-brand-blue: #3B82F6;
+  --color-brand-yellow: #FACC15;
   --color-brand-red: #EF4444;
   --color-brand-green: #22C55E;
   
   --color-background: var(--bg);
   --color-foreground: var(--text);
-  --color-muted: var(--muted);
+  --color-muted: var(--muted-color);
   
-  --color-card: var(--card);
-  --color-border: var(--border);
+  --color-card: var(--card-bg);
+  --color-border: var(--border-color);
   
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -20,28 +20,25 @@
 :root {
   --bg: #ffffff;
   --text: #000000;
-  --card: #f5f5f5;
-  --border: #000000;
+  --card-bg: #f5f5f5;
+  --border-color: #000000;
+  --muted-color: #4b5563;
   --primary: #3B82F6;
   --accent: #FACC15;
-  --muted: #4b5563;
 }
 
 .dark {
   --bg: #0f0f0f;
   --text: #ffffff;
-  --card: #141414;
-  --border: #000000;
-  --primary: #3B82F6;
-  --accent: #FACC15;
-  --muted: #9ca3af;
+  --card-bg: #141414;
+  --border-color: #ffffff;
+  --muted-color: #9ca3af;
 }
 
 @layer base {
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    @apply bg-background text-foreground transition-colors duration-300;
+    font-family: var(--font-sans);
   }
 }
 
@@ -51,56 +48,52 @@
   }
   
   .neo-shadow {
-    @apply shadow-[4px_4px_0px_var(--border)];
+    @apply shadow-[4px_4px_0px_var(--border-color)];
   }
   
   .neo-card {
-    @apply border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-md overflow-hidden transition-all duration-200;
+    @apply border-2 border-border shadow-[4px_4px_0px_var(--border-color)] rounded-md overflow-hidden transition-all duration-200;
   }
   
   .neo-card-yellow {
-    @apply bg-brand-yellow text-black shadow-[4px_4px_0px_#000000];
+    @apply bg-brand-yellow text-black shadow-[4px_4px_0px_#000000] border-2 border-black;
   }
   
   .neo-card-blue {
-    @apply bg-brand-blue text-white shadow-[4px_4px_0px_#000000];
+    @apply bg-brand-blue text-white shadow-[4px_4px_0px_#000000] border-2 border-black;
   }
   
   .neo-card-red {
-    @apply bg-brand-red text-white shadow-[4px_4px_0px_#000000];
+    @apply bg-brand-red text-white shadow-[4px_4px_0px_#000000] border-2 border-black;
   }
   
   .neo-card-white {
-    @apply bg-white text-black shadow-[4px_4px_0px_#000000];
+    @apply bg-white text-black shadow-[4px_4px_0px_#000000] border-2 border-black;
   }
   
   .neo-card-dark {
-    @apply bg-card text-foreground border-2 border-border shadow-[4px_4px_0px_var(--border)];
+    @apply bg-card text-foreground border-2 border-border shadow-[4px_4px_0px_var(--border-color)];
   }
 
   .neo-button {
-    @apply border-2 border-border shadow-[4px_4px_0px_var(--border)] rounded-[6px] px-4 py-2 font-bold uppercase tracking-wider transition-all duration-150;
-    @apply active:translate-y-[4px] active:translate-x-[4px] active:shadow-none hover:shadow-[2px_2px_0px_var(--border)];
+    @apply border-2 border-border shadow-[4px_4px_0px_var(--border-color)] rounded-[6px] px-4 py-2 font-bold uppercase tracking-wider transition-all duration-150;
+    @apply active:translate-y-[4px] active:translate-x-[4px] active:shadow-none hover:shadow-[2px_2px_0px_var(--border-color)];
   }
   
   .neo-button-yellow {
-    @apply bg-brand-yellow text-black shadow-[4px_4px_0px_#000000];
+    @apply bg-brand-yellow text-black border-2 border-black;
   }
   
   .neo-button-blue {
-    @apply bg-brand-blue text-white shadow-[4px_4px_0px_#000000];
+    @apply bg-brand-blue text-white border-2 border-black;
   }
   
   .neo-button-white {
-    @apply bg-white text-black shadow-[4px_4px_0px_#000000];
+    @apply bg-white text-black border-2 border-black;
   }
 }
 
 @keyframes progress-move {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 2rem 2rem;
-  }
+  0% { background-position: 0 0; }
+  100% { background-position: 2rem 2rem; }
 }
