@@ -170,12 +170,6 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ---
 
-## 🌟 Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=Sandy12bro/codearena&type=Date)](https://star-history.com/#Sandy12bro/codearena&Date)
-
----
-
 <div align="center">
 
 ### 🎉 **Thanks for checking out CodeArena!** 🎉
@@ -186,13 +180,11 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 #### 👥 **Our Amazing Team**
 
-**👑 Team Leader: Sanskar Bhasme**
+**👑 Team Leader:** Sanskar Bhasme
 
-**🎨 Frontend Team:**
+**🎨 Team Members:**
 - Prachi Jadhav
 - Bhakti Mandal
-
-**⚡ Backend Team:**
 - Sneha Jain
 
 ---
