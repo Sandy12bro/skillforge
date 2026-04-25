@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "../context/ThemeContext";
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -29,6 +30,7 @@ interface VisualizerProps {
 }
 
 export default function ExecutionVisualizer({ code, language, trace, onClose }: VisualizerProps) {
+  const { theme } = useTheme();
   const [currentStep, setCurrentStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [editor, setEditor] = useState<any>(null);
@@ -73,10 +75,10 @@ export default function ExecutionVisualizer({ code, language, trace, onClose }: 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] bg-[#0d0d0d] flex flex-col font-sans text-white overflow-hidden"
+      className="fixed inset-0 z-[100] bg-background flex flex-col font-sans text-foreground overflow-hidden"
     >
       {/* TOP HEADER */}
-      <header className="h-14 border-b-4 border-black bg-[#141414] px-6 flex items-center justify-between shadow-[0_4px_0_0_#000]">
+      <header className="h-14 border-b-4 border-black bg-card px-6 flex items-center justify-between shadow-[0_4px_0_0_#000]">
         <div className="flex items-center gap-3">
           <div className="p-1.5 bg-brand-blue neo-border shadow-[2px_2px_0_0_#000]">
             <Cpu size={18} className="text-white" />
@@ -97,8 +99,8 @@ export default function ExecutionVisualizer({ code, language, trace, onClose }: 
       <main className="flex-1 flex overflow-hidden">
         
         {/* LEFT PANEL: Code View */}
-        <section className="w-[35%] border-r-4 border-black flex flex-col bg-[#0d0d0d]">
-          <div className="h-10 border-b-2 border-black flex items-center px-4 bg-[#1a1a1a]">
+        <section className="w-[35%] border-r-4 border-black flex flex-col bg-background">
+          <div className="h-10 border-b-2 border-black flex items-center px-4 bg-card">
             <Code2 size={14} className="mr-2 text-brand-blue" />
             <span className="text-[10px] font-black uppercase tracking-widest text-muted">Source Code</span>
           </div>
@@ -106,7 +108,7 @@ export default function ExecutionVisualizer({ code, language, trace, onClose }: 
             <Editor
               height="100%"
               language={language}
-              theme="vs-dark"
+              theme={theme === "dark" ? "vs-dark" : "vs-light"}
               value={code}
               onMount={(editor) => setEditor(editor)}
               options={{
@@ -125,7 +127,7 @@ export default function ExecutionVisualizer({ code, language, trace, onClose }: 
         </section>
 
         {/* CENTER PANEL: Execution Flow */}
-        <section className="flex-1 border-r-4 border-black bg-[#111] flex flex-col p-10 relative">
+        <section className="flex-1 border-r-4 border-black bg-background flex flex-col p-10 relative">
           <div className="absolute top-4 left-4">
              <span className="text-[10px] font-black uppercase tracking-widest text-brand-blue bg-brand-blue/10 px-2 py-1 border border-brand-blue/30">Logic Flow</span>
           </div>
@@ -156,8 +158,8 @@ export default function ExecutionVisualizer({ code, language, trace, onClose }: 
         </section>
 
         {/* RIGHT PANEL: Memory / Variables */}
-        <section className="w-[30%] bg-[#0d0d0d] flex flex-col">
-          <div className="h-10 border-b-2 border-black flex items-center px-4 bg-[#1a1a1a]">
+        <section className="w-[30%] bg-background flex flex-col">
+          <div className="h-10 border-b-2 border-black flex items-center px-4 bg-card">
             <Variable size={14} className="mr-2 text-brand-yellow" />
             <span className="text-[10px] font-black uppercase tracking-widest text-muted">Memory Stack</span>
           </div>
@@ -168,13 +170,13 @@ export default function ExecutionVisualizer({ code, language, trace, onClose }: 
                   key={`${v.name}-${currentStep}`}
                   initial={{ x: 50, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  className="bg-[#1a1a1a] border-2 border-black p-4 shadow-[4px_4px_0_0_#000] relative group hover:-translate-y-1 transition-transform"
+                  className="bg-card border-2 border-black p-4 shadow-[4px_4px_0_0_#000] relative group hover:-translate-y-1 transition-transform"
                 >
                   <div className="absolute top-2 right-2 w-2 h-2 bg-brand-yellow rounded-full animate-pulse" />
                   <div className="text-[10px] font-black text-brand-yellow uppercase tracking-widest mb-1 opacity-50">Variable</div>
                   <div className="flex justify-between items-baseline">
                     <span className="text-xl font-black text-brand-blue font-mono">{v.name}</span>
-                    <span className="text-2xl font-black text-white font-mono">{String(v.value)}</span>
+                    <span className="text-2xl font-black text-foreground font-mono">{String(v.value)}</span>
                   </div>
                 </motion.div>
               ))}
@@ -190,7 +192,7 @@ export default function ExecutionVisualizer({ code, language, trace, onClose }: 
       </main>
 
       {/* BOTTOM CONTROLS */}
-      <footer className="h-20 border-t-4 border-black bg-[#141414] px-10 flex items-center justify-between shadow-[0_-4px_0_0_#000] z-20">
+      <footer className="h-20 border-t-4 border-black bg-card px-10 flex items-center justify-between shadow-[0_-4px_0_0_#000] z-20">
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
             <button 

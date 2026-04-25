@@ -88,17 +88,17 @@ export default function AuthPage() {
   };
 
   if (loading || user) {
-    return <div className="min-h-screen bg-background flex justify-center items-center font-bold text-white uppercase tracking-widest">Loading...</div>;
+    return <div className="min-h-screen bg-background flex justify-center items-center font-bold text-foreground uppercase tracking-widest">Loading...</div>;
   }
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <div className="max-w-md w-full neo-card bg-[#1f1f1f] border-2 border-brand-yellow shadow-[8px_8px_0px_#FACC15] p-8 flex flex-col items-center hover:translate-x-[2px] transition-transform duration-300">
+      <div className="max-w-md w-full neo-card bg-card border-2 border-brand-yellow shadow-[8px_8px_0px_#FACC15] p-8 flex flex-col items-center hover:translate-x-[2px] transition-transform duration-300">
         <div className="w-16 h-16 neo-card neo-card-yellow flex items-center justify-center font-black text-3xl mb-6 shadow-[4px_4px_0px_#000]">
           CA
         </div>
         
-        <h1 className="text-3xl lg:text-4xl font-black text-white uppercase tracking-widest drop-shadow-[2px_2px_0px_#EF4444] mb-2 text-center">
+        <h1 className="text-3xl lg:text-4xl font-black text-foreground uppercase tracking-widest drop-shadow-[2px_2px_0px_#EF4444] mb-2 text-center">
           {isLogin ? "Welcome Back" : "Join CodeArena"}
         </h1>
         <p className="text-muted font-bold mb-8 text-center uppercase text-sm tracking-wider">
@@ -118,7 +118,7 @@ export default function AuthPage() {
               placeholder="FULL NAME"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full p-3 bg-background text-white neo-border outline-none focus:border-brand-yellow font-bold placeholder-gray-600 transition-colors"
+              className="w-full p-3 bg-background text-foreground neo-border outline-none focus:border-brand-yellow font-bold placeholder-gray-600 transition-colors"
               required
             />
           )}
@@ -143,7 +143,7 @@ export default function AuthPage() {
             />
             <button 
               type="button"
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-foreground transition-colors"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? <EyeOff size={20}/> : <Eye size={20}/>}

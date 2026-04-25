@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, User, Terminal } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -14,12 +15,12 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 min-h-screen bg-[#141414] border-r-2 border-[#333] p-6 flex flex-col gap-8">
+    <aside className="w-64 min-h-screen bg-card border-r-2 border-border p-6 flex flex-col gap-8">
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 neo-card neo-card-yellow flex items-center justify-center font-bold text-xl">
           CA
         </div>
-        <h1 className="text-2xl font-bold tracking-tight text-white">CodeArena</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">CodeArena</h1>
       </div>
 
       <nav className="flex flex-col gap-4 mt-8 flex-1">
@@ -42,10 +43,12 @@ export default function Sidebar() {
         })}
       </nav>
 
-      <div className="mt-auto">
+      <div className="mt-auto flex flex-col gap-6">
+        <ThemeToggle />
+        
         <div className="neo-card neo-card-dark p-4 flex flex-col gap-2">
           <p className="font-bold text-sm text-brand-yellow">Level: Explorer</p>
-          <div className="w-full bg-[#111] h-3 neo-border rounded-full overflow-hidden">
+          <div className="w-full bg-background h-3 neo-border rounded-full overflow-hidden">
             <div className="bg-brand-blue h-full w-[45%]"></div>
           </div>
           <p className="text-xs text-muted font-bold text-right">450 / 1000 XP</p>

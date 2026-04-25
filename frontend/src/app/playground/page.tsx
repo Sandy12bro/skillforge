@@ -8,8 +8,10 @@ import { useRouter } from "next/navigation";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import Sidebar from "../../components/Sidebar";
 import ExecutionVisualizer from "../../components/ExecutionVisualizer";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function CodePlayground() {
+  const { theme } = useTheme();
   const { user, logout } = useAuth();
   const router = useRouter();
   
@@ -86,19 +88,19 @@ export default function CodePlayground() {
 
   return (
     <ProtectedRoute>
-      <div className="flex h-screen bg-[#0d0d0d] text-white overflow-hidden font-sans">
+      <div className="flex h-screen bg-background text-foreground overflow-hidden font-sans">
         <Sidebar />
         
         <div className="flex-1 flex flex-col min-w-0 relative">
           
           {/* Header */}
-          <header className="h-14 border-b-2 border-black bg-[#141414] px-6 flex items-center justify-between shadow-lg z-20">
+          <header className="h-14 border-b-2 border-black bg-card px-6 flex items-center justify-between shadow-lg z-20">
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-3">
                 <select 
                   value={language}
                   onChange={(e) => setLanguage(e.target.value)}
-                  className="bg-[#0d0d0d] border border-[#333] px-3 py-1.5 rounded-md text-xs font-bold uppercase outline-none cursor-pointer"
+                  className="bg-background border border-border px-3 py-1.5 rounded-md text-xs font-bold uppercase outline-none cursor-pointer"
                 >
                   {LANGUAGES.map(lang => <option key={lang.id} value={lang.id}>{lang.name}</option>)}
                 </select>
@@ -122,11 +124,11 @@ export default function CodePlayground() {
 
           <div className="flex-1 flex overflow-hidden">
             {/* Editor Area */}
-            <div className="flex-1 flex flex-col border-r-2 border-black bg-[#0d0d0d]">
+            <div className="flex-1 flex flex-col border-r-2 border-black bg-background">
               <Editor
                 height="100%"
                 language={language}
-                theme="vs-dark"
+                theme={theme === "dark" ? "vs-dark" : "vs-light"}
                 value={code}
                 onChange={(val) => setCode(val || "")}
                 options={{ fontSize: 14, minimap: { enabled: false }, automaticLayout: true, padding: { top: 20 } }}
@@ -134,8 +136,8 @@ export default function CodePlayground() {
             </div>
             
             {/* Output Area */}
-            <div className="w-[40%] flex flex-col bg-[#0a0a0a] p-6 font-mono text-sm overflow-y-auto no-scrollbar">
-              <h3 className="text-[10px] font-black uppercase text-muted mb-4 border-b border-[#333] pb-2 tracking-[0.2em]">Live Output</h3>
+            <div className="w-[40%] flex flex-col bg-background p-6 font-mono text-sm overflow-y-auto no-scrollbar">
+              <h3 className="text-[10px] font-black uppercase text-muted mb-4 border-b border-border pb-2 tracking-[0.2em]">Live Output</h3>
               {error && (
                 <div className="bg-brand-red/10 border-l-4 border-brand-red p-4 rounded mb-4 animate-in slide-in-from-top duration-300">
                   <p className="text-brand-red font-bold text-xs uppercase leading-relaxed">{error}</p>
