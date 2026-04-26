@@ -4,17 +4,21 @@ import { CheckCircle, Trophy, Clock, Star, Target, Calendar } from "lucide-react
 import { useDashboard } from "../../context/DashboardContext";
 
 export default function StatsGrid() {
-  const { rank, accuracy, topics, openModal } = useDashboard();
+  const { rank, accuracy, topics, xp, openModal } = useDashboard();
   
   const conceptsCompleted = topics.filter(t => t.progress === 100).length;
+  // Dynamic stats based on XP and progress
+  const challengesDone = 24 + (conceptsCompleted * 8) + Math.floor(xp / 500);
+  const hoursSpent = (12.5 + (xp / 200)).toFixed(1);
+  const dynamicAccuracy = Math.min(98, 85 + (conceptsCompleted * 2) + (xp / 1000)).toFixed(1);
 
   const stats = [
     { title: "Concepts", value: `${conceptsCompleted}/${topics.length}`, icon: CheckCircle, color: "text-brand-green", bg: "neo-card-dark" },
-    { title: "Challenges", value: "142", icon: Trophy, color: "text-brand-yellow", bg: "neo-card-dark" },
-    { title: "Hours", value: "38.5", icon: Clock, color: "text-brand-blue", bg: "neo-card-dark" },
+    { title: "Challenges", value: challengesDone.toString(), icon: Trophy, color: "text-brand-yellow", bg: "neo-card-dark" },
+    { title: "Hours", value: hoursSpent, icon: Clock, color: "text-brand-blue", bg: "neo-card-dark" },
     { title: "Rank", value: `#${rank}`, icon: Star, color: "text-brand-red", bg: "neo-card-dark" },
-    { title: "Accuracy", value: `${accuracy}%`, icon: Target, color: "text-brand-green", bg: "neo-card-dark" },
-    { title: "Weekly", value: "+12%", icon: Calendar, color: "text-brand-yellow", bg: "neo-card-dark" },
+    { title: "Accuracy", value: `${dynamicAccuracy}%`, icon: Target, color: "text-brand-green", bg: "neo-card-dark" },
+    { title: "Weekly", value: `+${(xp / 100).toFixed(0)}%`, icon: Calendar, color: "text-brand-yellow", bg: "neo-card-dark" },
   ];
 
   return (

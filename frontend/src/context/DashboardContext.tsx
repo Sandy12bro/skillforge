@@ -153,6 +153,12 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const addXP = (amount: number, reason: string) => {
     setXp((prev) => {
       const newXp = prev + amount;
+      
+      // Dynamic Rank: Improve rank as XP grows
+      if (Math.floor(newXp / 200) > Math.floor(prev / 200)) {
+        setRank(r => Math.max(1, r - 1));
+      }
+
       if (Math.floor(newXp / 1000) > Math.floor(prev / 1000)) {
         setLevel("Advanced Explorer");
         showToast("Level Up! You are now an Advanced Explorer!", "success");
