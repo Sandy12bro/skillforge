@@ -28,11 +28,38 @@ export default function ModalContainer() {
 
   // Debugger State
   const [debugStep, setDebugStep] = useState(0);
-  const [debugVariables, setDebugVariables] = useState([
-    { name: "is_active", value: "true", type: "bool" },
-    { name: "count", value: "14", type: "int" },
-    { name: "buffer", value: "nil", type: "pointer", error: true }
-  ]);
+  const debugData = [
+    { line: 24, code: "def analyze_stream(data):", vars: [
+      { name: "is_active", value: "true", type: "bool" },
+      { name: "count", value: "0", type: "int" },
+      { name: "buffer", value: "nil", type: "pointer" }
+    ]},
+    { line: 25, code: "  for packet in data:", vars: [
+      { name: "packet", value: "'0xAF'", type: "str" },
+      { name: "count", value: "0", type: "int" },
+      { name: "buffer", value: "nil", type: "pointer" }
+    ]},
+    { line: 26, code: "    count += 1", vars: [
+      { name: "packet", value: "'0xAF'", type: "str" },
+      { name: "count", value: "1", type: "int" },
+      { name: "buffer", value: "'0xAF...'", type: "pointer" }
+    ]},
+    { line: 27, code: "    if count > threshold:", vars: [
+      { name: "threshold", value: "10", type: "int" },
+      { name: "count", value: "1", type: "int" },
+      { name: "is_active", value: "true", type: "bool" }
+    ]},
+    { line: 25, code: "  for packet in data:", vars: [
+      { name: "packet", value: "'0xBC'", type: "str" },
+      { name: "count", value: "1", type: "int" },
+      { name: "buffer", value: "'0xAF...'", type: "pointer" }
+    ]},
+    { line: 26, code: "    count += 1", vars: [
+      { name: "packet", value: "'0xBC'", type: "str" },
+      { name: "count", value: "2", type: "int" },
+      { name: "buffer", value: "'0xBC...'", type: "pointer" }
+    ]},
+  ];
 
   // Visualizer State
   const [vizStep, setVizStep] = useState(0);
@@ -75,11 +102,7 @@ export default function ModalContainer() {
   };
 
   const stepDebugger = () => {
-    setDebugStep(prev => prev + 1);
-    setDebugVariables(prev => prev.map(v => 
-      v.name === "count" ? { ...v, value: (parseInt(v.value) + 1).toString() } :
-      v.name === "is_active" ? { ...v, value: Math.random() > 0.5 ? "true" : "false" } : v
-    ));
+    setDebugStep(prev => (prev + 1) % debugData.length);
   };
 
   const sendMentorMessage = () => {
@@ -191,26 +214,68 @@ export default function ModalContainer() {
             )}
 
             {activeModal === "Debugger" && (
-              <div className="space-y-4">
-                <div className="flex gap-2 mb-4">
-                  <button className="px-3 py-1 bg-brand-red/20 text-brand-red border-2 border-brand-red rounded text-[10px] font-black">BREAKPOINT: L24</button>
-                  <button className="px-3 py-1 bg-[#222] border-2 border-[#333] text-muted rounded text-[10px] font-black uppercase tracking-widest">Step: {debugStep}</button>
+              <div className="space-y-6">
+                <div className="flex justify-between items-center bg-[#0a0a0a] border-2 border-[#333] p-2 rounded text-[10px] font-black uppercase tracking-widest text-muted">
+                  <div className="flex gap-4">
+                    <span className="flex items-center gap-1"><Bug size={12} className="text-brand-red"/> Debug Session</span>
+                    <span className="text-white">stream_processor.py</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <span className="text-brand-green">Line: {debugData[debugStep % debugData.length].line}</span>
+                    <span className="text-brand-yellow">Step: {debugStep}</span>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <p className="text-xs font-black uppercase text-muted tracking-widest">Variable Watch</p>
-                  {debugVariables.map((v, i) => (
-                    <div key={i} className="flex justify-between p-3 bg-[#111] border-2 border-[#222] rounded text-sm group hover:border-brand-blue transition-colors">
-                      <span className="font-mono text-brand-blue">{v.name}</span>
-                      <span className={`font-mono font-bold ${v.error ? 'text-brand-red underline' : 'text-brand-yellow'}`}>{v.value}</span>
-                    </div>
-                  ))}
+
+                <div className="bg-[#0a0a0a] border-2 border-[#333] rounded-md font-mono text-sm overflow-hidden relative">
+                  <div className="absolute left-0 top-0 bottom-0 w-10 bg-[#111] border-r border-[#222] flex flex-col items-center pt-3 text-[10px] text-muted select-none">
+                    {[22, 23, 24, 25, 26, 27].map(num => (
+                      <span key={num} className={`mb-1.5 ${debugData[debugStep % debugData.length].line === num ? 'text-brand-red font-bold' : ''}`}>{num}</span>
+                    ))}
+                  </div>
+                  <div className="pl-12 py-3 space-y-1.5 relative">
+                    <div 
+                      className="absolute left-10 right-0 bg-brand-red/10 border-l-2 border-brand-red h-6 transition-all duration-300"
+                      style={{ top: `${(debugData[debugStep % debugData.length].line - 22) * 1.5 + 0.75}rem` }}
+                    ></div>
+                    <p className="opacity-40">import time</p>
+                    <p className="opacity-40">threshold = 10</p>
+                    <p className="text-white">def analyze_stream(data):</p>
+                    <p className="text-white pl-4">for packet in data:</p>
+                    <p className="text-white pl-8">count += 1</p>
+                    <p className="text-white pl-8">if count &gt; threshold:</p>
+                  </div>
                 </div>
-                <button 
-                  onClick={stepDebugger}
-                  className="w-full neo-button neo-button-red flex items-center justify-center gap-2 mt-4"
-                >
-                   Step Into
-                </button>
+
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <p className="text-xs font-black uppercase text-muted tracking-widest">Variable Watch</p>
+                    <button onClick={() => setDebugStep(0)} className="text-[10px] font-black text-brand-blue uppercase hover:underline">Reset</button>
+                  </div>
+                  <div className="grid grid-cols-1 gap-2">
+                    {debugData[debugStep % debugData.length].vars.map((v, i) => (
+                      <div key={i} className="flex justify-between p-3 bg-[#111] border-2 border-[#222] rounded text-sm group hover:border-brand-blue transition-all animate-in slide-in-from-right duration-300" style={{ animationDelay: `${i * 50}ms` }}>
+                        <div className="flex gap-3 items-center">
+                          <span className="w-1.5 h-1.5 rounded-full bg-brand-blue"></span>
+                          <span className="font-mono text-brand-blue">{v.name}</span>
+                          <span className="text-[10px] font-black text-muted opacity-50 uppercase">{v.type}</span>
+                        </div>
+                        <span className="font-mono font-bold text-brand-yellow">{v.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <button 
+                    onClick={stepDebugger}
+                    className="flex-1 neo-button neo-button-red flex items-center justify-center gap-2"
+                  >
+                    <ChevronRight size={18} /> Step Into (F11)
+                  </button>
+                  <button className="p-3 neo-card bg-[#222] text-muted cursor-not-allowed opacity-50">
+                    <Play size={18} />
+                  </button>
+                </div>
               </div>
             )}
             
