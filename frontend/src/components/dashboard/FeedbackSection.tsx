@@ -26,14 +26,14 @@ export default function FeedbackSection() {
   };
 
   return (
-    <section className="mt-12 mb-20">
-      <div className="neo-card bg-brand-yellow/10 border-brand-yellow p-8 relative overflow-hidden group">
+    <div className="h-full">
+      <div className="neo-card bg-brand-yellow/10 border-brand-yellow p-8 relative overflow-hidden group h-full">
         {/* Background Accent */}
         <div className="absolute -right-10 -bottom-10 opacity-5 group-hover:scale-110 transition-transform duration-700">
           <MessageSquare size={240} />
         </div>
 
-        <div className="relative z-10 max-w-2xl">
+        <div className="relative z-10 w-full">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 bg-brand-yellow border-2 border-black rounded-md flex items-center justify-center shadow-[3px_3px_0px_#000]">
               <ThumbsUp size={24} className="text-black" />
@@ -88,6 +88,6 @@ export default function FeedbackSection() {
           </form>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

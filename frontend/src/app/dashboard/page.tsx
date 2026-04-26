@@ -44,17 +44,21 @@ function DashboardContent() {
             
             <div className="lg:col-span-1 flex flex-col gap-12">
               <ActivityFeed />
-              <div className="neo-card p-7">
-                <h2 className="text-xl font-black uppercase mb-6 flex items-center gap-2">
-                  <span className="w-2 h-8 bg-brand-blue inline-block"></span>
-                  Leaderboard
-                </h2>
-                <Leaderboard />
-              </div>
             </div>
           </div>
 
-          <FeedbackSection />
+          {/* Bottom Interactive Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12 mb-20">
+            <FeedbackSection />
+            <div className="neo-card p-7">
+              <h2 className="text-xl font-black uppercase mb-6 flex items-center gap-2">
+                <span className="w-2 h-8 bg-brand-blue inline-block"></span>
+                Top Performers
+              </h2>
+              <Leaderboard />
+            </div>
+          </div>
+
         </div>
       </main>
 
