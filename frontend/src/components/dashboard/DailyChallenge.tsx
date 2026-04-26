@@ -1,31 +1,26 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Timer, ArrowRight, Bug, CheckCircle } from "lucide-react";
 import { useDashboard } from "../../context/DashboardContext";
 
 export default function DailyChallenge() {
-  const { addXP } = useDashboard();
-  const [isActive, setIsActive] = useState(false);
-  const [isCompleted, setIsCompleted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(180); // 3 minutes
+  const router = useRouter();
+  const { 
+    dailyTaskActive, 
+    dailyTaskCompleted, 
+    dailyTaskTimeLeft, 
+    startDailyTask, 
+    completeDailyTask 
+  } = useDashboard();
 
-  useEffect(() => {
-    let interval: any = null;
-    if (isActive && timeLeft > 0) {
-      interval = setInterval(() => setTimeLeft((t) => t - 1), 1000);
-    } else if (timeLeft === 0 && isActive) {
-      setIsActive(false);
-    }
-    return () => clearInterval(interval);
-  }, [isActive, timeLeft]);
-
-  const handleStart = () => setIsActive(true);
+  const handleStart = () => {
+    startDailyTask();
+    router.push("/playground");
+  };
 
   const handleSubmit = () => {
-    setIsActive(false);
-    setIsCompleted(true);
-    addXP(250, "Completed Daily Challenge!");
+    completeDailyTask();
   };
 
   const formatTime = (seconds: number) => {
@@ -34,7 +29,7 @@ export default function DailyChallenge() {
     return `${m}:${s}`;
   };
 
-  if (isCompleted) {
+  if (dailyTaskCompleted) {
     return (
       <div className="bg-green-400 text-black px-6 py-6 border-2 border-black shadow-[4px_4px_0px_#000] rounded-md mb-10 flex items-center justify-center gap-6 animate-in fade-in zoom-in duration-500">
         <div className="bg-white border-2 border-black p-2 rounded-full">
@@ -56,8 +51,8 @@ export default function DailyChallenge() {
           <div className="flex items-center gap-3 mb-4">
             <span className="bg-black text-white px-3 py-1 text-[10px] font-black uppercase tracking-widest border-2 border-white shadow-[2px_2px_0px_rgba(0,0,0,0.3)]">🔥 DAILY HOT FIX</span>
             <div className="flex items-center gap-2 text-black bg-white/40 px-3 py-1 border-2 border-black text-xs font-black">
-              <Timer size={16} className={isActive ? "animate-pulse text-red-600" : ""} /> 
-              {formatTime(timeLeft)}
+              <Timer size={16} className={dailyTaskActive ? "animate-pulse text-red-600" : ""} /> 
+              {formatTime(dailyTaskTimeLeft)}
             </div>
           </div>
           <h3 className="text-3xl font-black mb-3 uppercase tracking-tighter text-black leading-tight">Spot the Logic Leak: Python Recursion</h3>
@@ -70,7 +65,7 @@ export default function DailyChallenge() {
             <p className="text-4xl font-black text-black">+250 XP</p>
           </div>
           
-          {!isActive ? (
+          {!dailyTaskActive ? (
             <button onClick={handleStart} className="neo-button bg-white text-black w-full flex items-center justify-center gap-3 group text-sm font-black py-3">
               START MISSION <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
             </button>

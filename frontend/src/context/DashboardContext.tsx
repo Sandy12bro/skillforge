@@ -21,6 +21,11 @@ interface DashboardContextType {
   toasts: ToastMessage[];
   
   // Actions
+  dailyTaskActive: boolean;
+  dailyTaskCompleted: boolean;
+  dailyTaskTimeLeft: number;
+  startDailyTask: () => void;
+  completeDailyTask: () => void;
   addXP: (amount: number, reason: string) => void;
   updateTopicProgress: (title: string, amount: number) => void;
   setSearchQuery: (query: string) => void;
@@ -42,6 +47,12 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [modalData, setModalData] = useState<any>(null);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+
+  // Daily Task State
+  const [dailyTaskActive, setDailyTaskActive] = useState(false);
+  const [dailyTaskCompleted, setDailyTaskCompleted] = useState(false);
+  const [dailyTaskTimeLeft, setDailyTaskTimeLeft] = useState(180);
+  const [lastTaskDate, setLastTaskDate] = useState<string | null>(null);
 
   const [topics, setTopics] = useState<Topic[]>([
     { title: "Loops", progress: 80, color: "bg-brand-green", locked: false },
@@ -65,6 +76,25 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
 
     const savedActivities = localStorage.getItem("ca_activities");
     if (savedActivities) setActivities(JSON.parse(savedActivities));
+
+    // Daily Task Recovery
+    const savedActive = localStorage.getItem("ca_daily_active") === "true";
+    const savedCompleted = localStorage.getItem("ca_daily_completed") === "true";
+    const savedTime = localStorage.getItem("ca_daily_time");
+    const savedDate = localStorage.getItem("ca_daily_date");
+    const today = new Date().toDateString();
+
+    if (savedDate !== today) {
+      setDailyTaskActive(false);
+      setDailyTaskCompleted(false);
+      setDailyTaskTimeLeft(180);
+      setLastTaskDate(today);
+    } else {
+      setDailyTaskActive(savedActive);
+      setDailyTaskCompleted(savedCompleted);
+      if (savedTime) setDailyTaskTimeLeft(parseInt(savedTime));
+      setLastTaskDate(savedDate);
+    }
   }, []);
 
   // Save to localStorage on change
@@ -72,7 +102,35 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("ca_xp", xp.toString());
     localStorage.setItem("ca_topics", JSON.stringify(topics));
     localStorage.setItem("ca_activities", JSON.stringify(activities));
-  }, [xp, topics, activities]);
+    
+    localStorage.setItem("ca_daily_active", dailyTaskActive.toString());
+    localStorage.setItem("ca_daily_completed", dailyTaskCompleted.toString());
+    localStorage.setItem("ca_daily_time", dailyTaskTimeLeft.toString());
+    if (lastTaskDate) localStorage.setItem("ca_daily_date", lastTaskDate);
+  }, [xp, topics, activities, dailyTaskActive, dailyTaskCompleted, dailyTaskTimeLeft, lastTaskDate]);
+
+  // Countdown timer
+  useEffect(() => {
+    let interval: any = null;
+    if (dailyTaskActive && dailyTaskTimeLeft > 0) {
+      interval = setInterval(() => {
+        setDailyTaskTimeLeft((prev) => prev - 1);
+      }, 1000);
+    } else if (dailyTaskTimeLeft === 0 && dailyTaskActive) {
+      setDailyTaskActive(false);
+    }
+    return () => clearInterval(interval);
+  }, [dailyTaskActive, dailyTaskTimeLeft]);
+
+  const startDailyTask = () => {
+    setDailyTaskActive(true);
+  };
+
+  const completeDailyTask = () => {
+    setDailyTaskActive(false);
+    setDailyTaskCompleted(true);
+    addXP(250, "Completed Daily Challenge!");
+  };
 
   const showToast = (message: string, type: "success" | "info" | "error" = "info") => {
     const id = Math.random().toString(36).substr(2, 9);
@@ -140,6 +198,8 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
       value={{
         xp, level, streak, rank, accuracy, topics, searchQuery, activities,
         activeModal, modalData, toasts,
+        dailyTaskActive, dailyTaskCompleted, dailyTaskTimeLeft,
+        startDailyTask, completeDailyTask,
         addXP, updateTopicProgress, setSearchQuery, openModal, closeModal, showToast
       }}
     >
