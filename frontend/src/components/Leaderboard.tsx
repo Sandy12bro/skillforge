@@ -15,9 +15,23 @@ const LEADERBOARD_DATA = [
 ];
 
 export default function Leaderboard() {
-  const { searchQuery } = useDashboard();
+  const { searchQuery, xp, level: userLevel } = useDashboard();
   
-  const filteredData = LEADERBOARD_DATA.filter(user => 
+  // Combine user data with dummy data and sort by XP
+  const rawData = [
+    ...LEADERBOARD_DATA.filter(u => !u.isUser),
+    { rank: 0, name: "You", xp: xp, badge: userLevel, isUser: true }
+  ];
+
+  // Sort and assign ranks
+  const rankedData = rawData
+    .sort((a, b) => b.xp - a.xp)
+    .map((user, index) => ({
+      ...user,
+      rank: index + 1
+    }));
+
+  const filteredData = rankedData.filter(user => 
     user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.badge.toLowerCase().includes(searchQuery.toLowerCase())
   );
