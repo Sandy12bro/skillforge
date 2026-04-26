@@ -8,11 +8,16 @@
 
 ## 🎯 What is CodeArena?
 
-CodeArena is your ultimate **placement preparation platform** that combines:
-- 📱 **WhatsApp-based daily tasks** to keep you consistent
-- 🗺️ **Personalized learning roadmaps** tailored to your goals
-- 🤖 **AI-powered feedback** to accelerate your progress
-- 🎮 **Gamified experience** to make learning fun
+CodeArena is your ultimate **AI-powered interactive coding learning and development platform** that combines:
+-💻 Code Visualization – Understand code flow visually step-by-step.
+-🐞 Debugger – Detect and fix errors easily.
+-⚠️ Error Checker – Find syntax/runtime issues instantly.
+-📘 Concept Learning Hub – Learn coding concepts with explanations.
+-🏆 Gamification System – Earn XP by completing concepts/tasks.
+-🎮 Playground – Practice coding freely.
+-🥇 Leaderboard / Top Performers – Encourage competitive learning.
+-📈 Progress Tracker – Monitor learning growth.
+-🤖 AI Assistance – Get smart explanations and support.
 
 ---
 
