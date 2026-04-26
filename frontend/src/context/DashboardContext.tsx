@@ -57,10 +57,10 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [lastTaskDate, setLastTaskDate] = useState<string | null>(null);
 
   const [topics, setTopics] = useState<Topic[]>([
-    { title: "Loops", progress: 80, color: "bg-brand-green", locked: false },
-    { title: "Functions", progress: 45, color: "bg-brand-yellow", locked: false },
-    { title: "Arrays", progress: 20, color: "bg-brand-blue", locked: false },
-    { title: "Recursion", progress: 0, color: "bg-[#333]", locked: true },
+    { title: "Arrays", progress: 0, color: "bg-brand-blue", locked: false },
+    { title: "Loops", progress: 0, color: "bg-brand-green", locked: true },
+    { title: "Functions", progress: 0, color: "bg-brand-yellow", locked: true },
+    { title: "Recursion", progress: 0, color: "bg-brand-red", locked: true },
   ]);
 
   const [activities, setActivities] = useState<Activity[]>([
@@ -166,24 +166,26 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const updateTopicProgress = (title: string, amount: number) => {
     setLastActiveTopic(title);
     setTopics((prev) => {
-      const newTopics = prev.map((t) => {
+      let nextToUnlock: string | null = null;
+      const newTopics = prev.map((t, index) => {
         if (t.title === title) {
           const newProgress = Math.min(100, t.progress + amount);
           if (newProgress === 100 && t.progress < 100) {
             showToast(`Completed ${title}!`, "success");
             addXP(100, `Completing ${title}`);
+            // Mark next topic to unlock
+            if (index < prev.length - 1) {
+              nextToUnlock = prev[index + 1].title;
+            }
           }
           return { ...t, progress: newProgress };
         }
         return t;
       });
 
-      // Unlock logic: If Arrays reaches 100%, unlock Recursion
-      const arrays = newTopics.find(t => t.title === "Arrays");
-      const recursion = newTopics.find(t => t.title === "Recursion");
-      if (arrays?.progress === 100 && recursion?.locked) {
-        showToast("New Topic Unlocked: Recursion!", "info");
-        return newTopics.map(t => t.title === "Recursion" ? { ...t, locked: false, color: "bg-brand-red" } : t);
+      if (nextToUnlock) {
+        showToast(`New Topic Unlocked: ${nextToUnlock}!`, "info");
+        return newTopics.map(t => t.title === nextToUnlock ? { ...t, locked: false } : t);
       }
 
       return newTopics;
