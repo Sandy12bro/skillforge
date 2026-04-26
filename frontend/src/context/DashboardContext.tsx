@@ -3,7 +3,14 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 // Types
-export type Topic = { title: string; progress: number; color: string; locked: boolean };
+export type Lesson = { id: string; title: string; completed: boolean; content: string };
+export type Topic = { 
+  title: string; 
+  progress: number; 
+  color: string; 
+  locked: boolean;
+  lessons: Lesson[];
+};
 export type Activity = { text: string; time: string; icon: string; color: string };
 export type ToastMessage = { id: string; message: string; type: "success" | "info" | "error" };
 
@@ -27,6 +34,7 @@ interface DashboardContextType {
   dailyTaskTimeLeft: number;
   startDailyTask: () => void;
   completeDailyTask: () => void;
+  completeLesson: (topicTitle: string, lessonId: string) => void;
   addXP: (amount: number, reason: string) => void;
   updateTopicProgress: (title: string, amount: number) => void;
   setSearchQuery: (query: string) => void;
@@ -57,10 +65,50 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [lastTaskDate, setLastTaskDate] = useState<string | null>(null);
 
   const [topics, setTopics] = useState<Topic[]>([
-    { title: "Arrays", progress: 0, color: "bg-brand-blue", locked: false },
-    { title: "Loops", progress: 0, color: "bg-brand-green", locked: true },
-    { title: "Functions", progress: 0, color: "bg-brand-yellow", locked: true },
-    { title: "Recursion", progress: 0, color: "bg-brand-red", locked: true },
+    { 
+      title: "Arrays", 
+      progress: 0, 
+      color: "bg-brand-blue", 
+      locked: false,
+      lessons: [
+        { id: "a1", title: "Introduction to Arrays", completed: false, content: "Arrays are ordered lists of elements..." },
+        { id: "a2", title: "Accessing Elements", completed: false, content: "Use index-based access: array[0]..." },
+        { id: "a3", title: "Array Methods (Push/Pop)", completed: false, content: "Adding and removing elements..." },
+      ]
+    },
+    { 
+      title: "Loops", 
+      progress: 0, 
+      color: "bg-brand-green", 
+      locked: true,
+      lessons: [
+        { id: "l1", title: "For Loops", completed: false, content: "Iterate over a range of values..." },
+        { id: "l2", title: "While Loops", completed: false, content: "Repeat while a condition is true..." },
+        { id: "l3", title: "Nested Loops", completed: false, content: "Loops within loops..." },
+      ]
+    },
+    { 
+      title: "Functions", 
+      progress: 0, 
+      color: "bg-brand-yellow", 
+      locked: true,
+      lessons: [
+        { id: "f1", title: "Defining Functions", completed: false, content: "Reusable blocks of code..." },
+        { id: "f2", title: "Parameters & Arguments", completed: false, content: "Passing data to functions..." },
+        { id: "f3", title: "Return Values", completed: false, content: "Getting data out of functions..." },
+      ]
+    },
+    { 
+      title: "Recursion", 
+      progress: 0, 
+      color: "bg-brand-red", 
+      locked: true,
+      lessons: [
+        { id: "r1", title: "Base Cases", completed: false, content: "Preventing infinite recursion..." },
+        { id: "r2", title: "Recursive Calls", completed: false, content: "Calling a function from itself..." },
+        { id: "r3", title: "Stack Visualization", completed: false, content: "Understanding memory in recursion..." },
+      ]
+    },
   ]);
 
   const [activities, setActivities] = useState<Activity[]>([
@@ -198,6 +246,35 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
+  const completeLesson = (topicTitle: string, lessonId: string) => {
+    setTopics((prev) => {
+      let nextToUnlock: string | null = null;
+      const newTopics = prev.map((t, index) => {
+        if (t.title === topicTitle) {
+          const newLessons = t.lessons.map(l => l.id === lessonId ? { ...l, completed: true } : l);
+          const completedCount = newLessons.filter(l => l.completed).length;
+          const newProgress = Math.round((completedCount / t.lessons.length) * 100);
+          
+          if (newProgress === 100 && t.progress < 100) {
+            showToast(`Completed ${topicTitle}!`, "success");
+            addXP(100, `Completing ${topicTitle}`);
+            if (index < prev.length - 1) {
+              nextToUnlock = prev[index + 1].title;
+            }
+          }
+          return { ...t, lessons: newLessons, progress: newProgress };
+        }
+        return t;
+      });
+
+      if (nextToUnlock) {
+        showToast(`New Topic Unlocked: ${nextToUnlock}!`, "info");
+        return newTopics.map(t => t.title === nextToUnlock ? { ...t, locked: false } : t);
+      }
+      return newTopics;
+    });
+  };
+
   const openModal = (name: string, data?: any) => {
     setModalData(data || null);
     setActiveModal(name);
@@ -216,6 +293,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
         dailyTaskActive, dailyTaskCompleted, dailyTaskTimeLeft,
         startDailyTask, completeDailyTask,
         lastActiveTopic,
+        completeLesson,
         addXP, updateTopicProgress, setSearchQuery, openModal, closeModal, showToast
       }}
     >

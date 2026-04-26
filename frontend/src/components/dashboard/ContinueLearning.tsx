@@ -42,15 +42,15 @@ export default function ContinueLearning() {
                 </div>
               </div>
               <button 
-                onClick={() => updateTopicProgress(topic.title, 10)}
+                onClick={() => !topic.locked && openModal("Learning Module", topic)}
                 className={`neo-button w-full flex items-center justify-center gap-2 text-xs py-2 ${
                   topic.locked ? "bg-muted/30 text-muted cursor-not-allowed border-border" : 
                   topic.progress === 100 ? "bg-brand-green text-black" : "bg-card hover:bg-brand-yellow text-foreground hover:text-black"
                 }`}
-                disabled={topic.locked || topic.progress === 100}
+                disabled={topic.locked}
               >
-                {topic.locked ? "LOCKED" : topic.progress === 100 ? "COMPLETE" : "RESUME"} 
-                {!topic.locked && topic.progress < 100 && <Play size={14} fill="currentColor" />}
+                {topic.locked ? "LOCKED" : topic.progress === 100 ? "REVIEW" : "START LEARNING"} 
+                {!topic.locked && <Play size={14} fill="currentColor" />}
               </button>
             </div>
           ))

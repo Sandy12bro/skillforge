@@ -12,7 +12,7 @@ import React, { useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 
 export default function ModalContainer() {
-  const { activeModal, modalData, closeModal } = useDashboard();
+  const { activeModal, modalData, closeModal, completeLesson } = useDashboard();
   const { user, profilePic, updateProfilePic, logout } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
   
@@ -171,6 +171,53 @@ export default function ModalContainer() {
           
           {/* Content Body */}
           <div className="p-6 overflow-y-auto flex-1 custom-scrollbar">
+            
+            {activeModal === "Learning Module" && modalData && (
+              <div className="space-y-6">
+                <div className="flex items-center justify-between mb-2">
+                   <div>
+                      <h3 className="text-2xl font-black text-brand-blue uppercase italic">{modalData.title}</h3>
+                      <p className="text-muted text-[10px] font-black uppercase tracking-widest">Learning Curriculum</p>
+                   </div>
+                   <div className="text-right">
+                      <p className="text-2xl font-black">{modalData.progress}%</p>
+                      <p className="text-[8px] font-black uppercase opacity-50">Overall Mastery</p>
+                   </div>
+                </div>
+
+                <div className="space-y-3">
+                  {modalData.lessons.map((lesson: any, i: number) => (
+                    <div key={lesson.id} className={`p-5 border-2 rounded-md transition-all ${lesson.completed ? 'bg-brand-green/10 border-brand-green opacity-80 shadow-[4px_4px_0px_rgba(34,197,94,0.2)]' : 'bg-[#111] border-[#333] hover:border-brand-blue group'}`}>
+                      <div className="flex justify-between items-start mb-2">
+                        <div className="flex items-center gap-3">
+                           <span className={`w-6 h-6 flex items-center justify-center rounded-full text-[10px] font-black ${lesson.completed ? 'bg-brand-green text-black' : 'bg-[#333] text-white'}`}>{i + 1}</span>
+                           <h4 className={`font-black uppercase text-sm ${lesson.completed ? 'line-through opacity-50' : ''}`}>{lesson.title}</h4>
+                        </div>
+                        {lesson.completed && (
+                          <div className="flex items-center gap-1 text-brand-green">
+                            <span className="text-[8px] font-black uppercase">Lesson Passed</span>
+                            <CheckCircle size={18} />
+                          </div>
+                        )}
+                      </div>
+                      <p className="text-xs text-muted font-bold leading-relaxed mb-4">{lesson.content}</p>
+                      {!lesson.completed && (
+                        <button 
+                          onClick={() => {
+                            completeLesson(modalData.title, lesson.id);
+                            // Visual feedback (local update since context takes a tick)
+                            lesson.completed = true;
+                          }}
+                          className="w-full py-2.5 bg-brand-blue text-white font-black text-[10px] uppercase tracking-widest border-2 border-black shadow-[4px_4px_0px_#000] hover:-translate-y-1 transition-all flex items-center justify-center gap-2"
+                        >
+                          Mark as Completed <ChevronRight size={14} />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             
             {activeModal === "Visualizer" && (
               <div className="space-y-6">
