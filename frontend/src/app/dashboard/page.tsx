@@ -18,7 +18,6 @@ import DailyChallenge from "../../components/dashboard/DailyChallenge";
 import MentorSuggestions from "../../components/dashboard/MentorSuggestions";
 import ActivityFeed from "../../components/dashboard/ActivityFeed";
 import Leaderboard from "../../components/Leaderboard";
-import Sidebar from "../../components/Sidebar";
 import FeedbackSection from "../../components/dashboard/FeedbackSection";
 
 // Overlays
@@ -29,161 +28,102 @@ function DashboardContent() {
   const { user } = useAuth();
   const userName = user?.displayName?.split(" ")[0] || "Maker";
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [activeSection, setActiveSection] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       setShowBackToTop(window.scrollY > 400);
-      
-      // Update active section based on scroll position
-      const sections = ["welcome", "learning", "actions", "challenge", "mentor", "social"];
-      const current = sections.findIndex(id => {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          return rect.top >= -100 && rect.top <= 300;
-        }
-        return false;
-      });
-      if (current !== -1) setActiveSection(current);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollTo = (id: string | number) => {
-    if (typeof id === "number") {
-      const sectionIds = ["welcome", "learning", "actions", "challenge", "mentor", "social"];
-      id = sectionIds[id];
-    }
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const sections = [
-    { 
-      id: "welcome", 
-      content: (
-        <div className="max-w-7xl mx-auto">
-          <HeroWelcome userName={userName} />
-          <div className="mt-12">
-            <StatsGrid />
-          </div>
-        </div>
-      )
-    },
-    { 
-      id: "learning", 
-      content: (
-        <div className="max-w-7xl mx-auto flex flex-col gap-12">
-          <ProgressTracker />
-          <ContinueLearning />
-        </div>
-      )
-    },
-    { 
-      id: "actions", 
-      content: (
-        <div className="max-w-7xl mx-auto">
-          <QuickActions />
-        </div>
-      )
-    },
-    { 
-      id: "challenge", 
-      content: (
-        <div className="max-w-5xl mx-auto">
-          <DailyChallenge />
-        </div>
-      )
-    },
-    { 
-      id: "mentor", 
-      content: (
-        <div className="max-w-7xl mx-auto">
-          <MentorSuggestions />
-        </div>
-      )
-    },
-    { 
-      id: "social", 
-      content: (
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-          <div className="lg:col-span-1">
-            <ActivityFeed />
-          </div>
-          <div className="lg:col-span-1">
-            <FeedbackSection />
-          </div>
-          <div className="lg:col-span-1 neo-card p-8 h-full">
-            <h2 className="text-xl font-black uppercase mb-8 flex items-center gap-3">
-              <span className="w-3 h-8 bg-brand-blue inline-block"></span>
-              Top Performers
-            </h2>
-            <Leaderboard />
-          </div>
-        </div>
-      )
-    }
-  ];
-
   return (
-    <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-brand-yellow selection:text-black">
-      <Sidebar activeSection={activeSection} scrollTo={(idx) => scrollTo(idx)} />
-      
-      <main className="flex-1 flex flex-col min-w-0 relative">
-        {/* Sticky Header */}
-        <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b-2 border-black/5 dark:border-white/5 p-6 md:p-8">
-          <div className="max-w-7xl mx-auto">
-            <TopNavbar />
-          </div>
-        </header>
+    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-brand-yellow selection:text-black transition-colors duration-500 overflow-x-hidden">
+      <main className="w-full p-4 md:p-10">
+        <div className="max-w-7xl mx-auto space-y-10 relative">
+          
+          {/* Header */}
+          <TopNavbar />
 
-        {/* Scrollable Content */}
-        <div className="flex flex-col space-y-24 py-16">
-          {sections.map((section) => (
-            <motion.section
-              key={section.id}
-              id={section.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="w-full px-6 md:px-12"
-            >
-              {section.content}
-            </motion.section>
-          ))}
+          {/* Hero & Stats */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="space-y-10"
+          >
+            <HeroWelcome userName={userName} />
+            <StatsGrid />
+          </motion.div>
+
+          {/* Main Dashboard Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            
+            {/* Left Column - Core Learning */}
+            <div className="lg:col-span-2 space-y-10">
+              <section id="progress">
+                <ProgressTracker />
+              </section>
+              <section id="learning">
+                <ContinueLearning />
+              </section>
+              <section id="actions">
+                <QuickActions />
+              </section>
+              <section id="suggestions">
+                <MentorSuggestions />
+              </section>
+            </div>
+
+            {/* Right Column - Social & Daily */}
+            <div className="lg:col-span-1 space-y-10">
+              <section id="challenge">
+                <DailyChallenge />
+              </section>
+              <section id="activity">
+                <ActivityFeed />
+              </section>
+              <section id="feedback">
+                <FeedbackSection />
+              </section>
+              <section id="leaderboard" className="neo-card p-7">
+                <h2 className="text-xl font-black uppercase mb-6 flex items-center gap-2">
+                  <span className="w-2 h-8 bg-brand-blue inline-block"></span>
+                  Top Performers
+                </h2>
+                <Leaderboard />
+              </section>
+            </div>
+
+          </div>
+
+          {/* Footer Area */}
+          <footer className="py-12 border-t-2 border-border mt-20 opacity-40">
+            <div className="text-center">
+              <p className="font-black uppercase tracking-widest text-xs">CodeArena // Next-Gen Learning Engine</p>
+            </div>
+          </footer>
         </div>
-
-        {/* Footer Area */}
-        <footer className="py-20 border-t-2 border-border mt-20 bg-card/30">
-          <div className="max-w-7xl mx-auto px-8 text-center">
-            <p className="font-black uppercase tracking-widest opacity-40 text-xs">CodeArena // Next-Gen Learning Engine</p>
-          </div>
-        </footer>
-
-        {/* Back to Top Button */}
-        <AnimatePresence>
-          {showBackToTop && (
-            <motion.button
-              initial={{ opacity: 0, scale: 0.5, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.5, y: 20 }}
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="fixed bottom-10 right-10 z-50 neo-button bg-brand-yellow text-black w-14 h-14 flex items-center justify-center p-0 rounded-full shadow-[4px_4px_0px_#000]"
-            >
-              <ChevronUp size={28} />
-            </motion.button>
-          )}
-        </AnimatePresence>
       </main>
 
+      {/* Overlays */}
       <ToastContainer />
       <ModalContainer />
+
+      {/* Back to Top */}
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="fixed bottom-8 right-8 z-50 neo-button bg-brand-yellow text-black w-12 h-12 flex items-center justify-center p-0 rounded-full shadow-[4px_4px_0px_#000]"
+          >
+            <ChevronUp size={24} />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
