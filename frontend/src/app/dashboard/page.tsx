@@ -59,10 +59,13 @@ function DashboardContent() {
           {/* Main Dashboard Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             
-            {/* Left Column - Core Learning */}
+            {/* Left Column - Core Learning & Challenges */}
             <div className="lg:col-span-2 space-y-10">
               <section id="progress">
                 <ProgressTracker />
+              </section>
+              <section id="challenge">
+                <DailyChallenge />
               </section>
               <section id="learning">
                 <ContinueLearning />
@@ -73,28 +76,28 @@ function DashboardContent() {
               <section id="suggestions">
                 <MentorSuggestions />
               </section>
+              
+              {/* Review & Top Performer Grid (Requested after Mentor) */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <section id="feedback">
+                  <FeedbackSection />
+                </section>
+                <section id="leaderboard" className="neo-card p-7">
+                  <h2 className="text-xl font-black uppercase mb-6 flex items-center gap-2">
+                    <span className="w-2 h-8 bg-brand-blue inline-block"></span>
+                    Top Performers
+                  </h2>
+                  <Leaderboard />
+                </section>
+              </div>
             </div>
 
-            {/* Right Column - Social & Daily */}
+            {/* Right Column - Secondary Info */}
             <div className="lg:col-span-1 space-y-10">
-              <section id="challenge">
-                <DailyChallenge />
-              </section>
               <section id="activity">
                 <ActivityFeed />
               </section>
-              <section id="feedback">
-                <FeedbackSection />
-              </section>
-              <section id="leaderboard" className="neo-card p-7">
-                <h2 className="text-xl font-black uppercase mb-6 flex items-center gap-2">
-                  <span className="w-2 h-8 bg-brand-blue inline-block"></span>
-                  Top Performers
-                </h2>
-                <Leaderboard />
-              </section>
             </div>
-
           </div>
 
           {/* Footer Area */}

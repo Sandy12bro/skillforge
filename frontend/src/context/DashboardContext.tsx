@@ -47,7 +47,7 @@ const DashboardContext = createContext<DashboardContextType | undefined>(undefin
 
 export function DashboardProvider({ children }: { children: React.ReactNode }) {
   // Initialize state with default or localStorage values
-  const [xp, setXp] = useState(1250);
+  const [xp, setXp] = useState(0);
   const [level, setLevel] = useState("Explorer");
   const [streak, setStreak] = useState(5);
   const [rank, setRank] = useState(42);
