@@ -115,13 +115,18 @@ function DashboardContent() {
       {/* Back to Top */}
       <AnimatePresence>
         {showBackToTop && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.5 }}
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="fixed bottom-8 right-8 z-50 neo-button bg-brand-yellow text-black w-12 h-12 flex items-center justify-center p-0 rounded-full shadow-[4px_4px_0px_#000]"
-          >
+            <motion.button
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              onClick={() => {
+                window.scrollTo({
+                  top: 0,
+                  behavior: "smooth"
+                });
+              }}
+              className="fixed bottom-8 right-8 z-50 neo-button bg-brand-yellow text-black w-14 h-14 flex items-center justify-center p-0 rounded-full shadow-[6px_6px_0px_#000] hover:shadow-[2px_2px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px]"
+            >
             <ChevronUp size={24} />
           </motion.button>
         )}
