@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import { useAuth } from "../../context/AuthContext";
@@ -110,11 +110,20 @@ function DashboardContent() {
 
     const onWheel = (e: WheelEvent) => {
       if (e.deltaY === 0) return;
-      e.preventDefault();
-      el.scrollTo({
-        left: el.scrollLeft + e.deltaY * 3,
-        behavior: "smooth"
-      });
+      // Prevent default to control scrolling behavior
+      const isHorizontalScrollable = e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY);
+      if (!isHorizontalScrollable) {
+        e.preventDefault();
+        el.scrollLeft += e.deltaY * 2;
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") {
+        scrollTo(Math.min(activeSection + 1, sections.length - 1));
+      } else if (e.key === "ArrowLeft") {
+        scrollTo(Math.max(activeSection - 1, 0));
+      }
     };
 
     const onScroll = () => {
@@ -125,11 +134,14 @@ function DashboardContent() {
 
     el.addEventListener("wheel", onWheel, { passive: false });
     el.addEventListener("scroll", onScroll);
+    window.addEventListener("keydown", handleKeyDown);
+    
     return () => {
       el.removeEventListener("wheel", onWheel);
       el.removeEventListener("scroll", onScroll);
+      window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [activeSection]);
+  }, [activeSection, sections.length]);
 
   const scrollTo = (index: number) => {
     if (scrollRef.current) {
@@ -142,7 +154,7 @@ function DashboardContent() {
 
   return (
     <div className="flex h-screen overflow-hidden bg-background text-foreground font-sans transition-colors duration-500">
-      <Sidebar />
+      <Sidebar activeSection={activeSection} scrollTo={scrollTo} />
       
       <main className="flex-1 relative flex flex-col min-w-0">
         <div className="absolute top-0 left-0 right-0 z-30 p-10 pointer-events-none">
@@ -164,7 +176,20 @@ function DashboardContent() {
               style={{ opacity: activeSection === idx ? 1 : 0.4 }}
             >
               <div className="w-full flex-1 flex flex-col justify-center">
-                {section.content}
+                <AnimatePresence mode="wait">
+                  {activeSection === idx && (
+                    <motion.div
+                      key={section.id}
+                      initial={{ opacity: 0, x: 100, filter: "blur(10px)" }}
+                      animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, x: -100, filter: "blur(10px)" }}
+                      transition={{ duration: 0.5, ease: "circOut" }}
+                      className="w-full h-full flex flex-col justify-center"
+                    >
+                      {section.content}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </section>
           ))}
