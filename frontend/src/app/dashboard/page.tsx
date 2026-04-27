@@ -76,26 +76,22 @@ function DashboardContent() {
               <section id="suggestions">
                 <MentorSuggestions />
               </section>
-              
-              {/* Review & Top Performer Grid (Requested after Mentor) */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                <section id="feedback">
-                  <FeedbackSection />
-                </section>
-                <section id="leaderboard" className="neo-card p-7">
-                  <h2 className="text-xl font-black uppercase mb-6 flex items-center gap-2">
-                    <span className="w-2 h-8 bg-brand-blue inline-block"></span>
-                    Top Performers
-                  </h2>
-                  <Leaderboard />
-                </section>
-              </div>
+              <section id="feedback">
+                <FeedbackSection />
+              </section>
             </div>
 
-            {/* Right Column - Secondary Info */}
+            {/* Right Column - Social & Competitive */}
             <div className="lg:col-span-1 space-y-10">
               <section id="activity">
                 <ActivityFeed />
+              </section>
+              <section id="leaderboard" className="neo-card p-7">
+                <h2 className="text-xl font-black uppercase mb-6 flex items-center gap-2">
+                  <span className="w-2 h-8 bg-brand-blue inline-block"></span>
+                  Top Performers
+                </h2>
+                <Leaderboard />
               </section>
             </div>
           </div>
