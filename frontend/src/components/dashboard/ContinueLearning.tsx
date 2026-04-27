@@ -11,11 +11,21 @@ export default function ContinueLearning() {
 
   const getTopicBorder = (title: string) => {
     switch (title.toLowerCase()) {
-      case 'loops': return 'border-t-4 border-green-500';
-      case 'functions': return 'border-t-4 border-yellow-400';
-      case 'arrays': return 'border-t-4 border-blue-500';
-      case 'recursion': return 'border-t-4 border-red-500';
+      case 'loops': return 'border-t-4 border-brand-green';
+      case 'functions': return 'border-t-4 border-brand-yellow';
+      case 'arrays': return 'border-t-4 border-brand-blue';
+      case 'recursion': return 'border-t-4 border-brand-red';
       default: return 'border-t-4 border-brand-blue';
+    }
+  };
+
+  const getTopicShadow = (title: string) => {
+    switch (title.toLowerCase()) {
+      case 'loops': return 'hover:shadow-[10px_10px_0px_#10b981]';
+      case 'functions': return 'hover:shadow-[10px_10px_0px_#facc15]';
+      case 'arrays': return 'hover:shadow-[10px_10px_0px_#3b82f6]';
+      case 'recursion': return 'hover:shadow-[10px_10px_0px_#ef4444]';
+      default: return 'hover:shadow-[10px_10px_0px_var(--primary)]';
     }
   };
 
@@ -30,7 +40,7 @@ export default function ContinueLearning() {
           filteredTopics.map((topic, i) => (
             <div 
               key={i} 
-              className={`neo-card p-8 flex flex-col justify-between hover:bg-black/5 dark:hover:bg-white/5 hover:-translate-y-2 hover:shadow-[10px_10px_0px_#000] dark:hover:shadow-[10px_10px_0px_#ca8a04] transition-all duration-300 ${getTopicBorder(topic.title)} ${topic.locked ? "opacity-50 grayscale" : "cursor-pointer"}`}
+              className={`neo-card p-8 flex flex-col justify-between hover:bg-black/5 dark:hover:bg-white/5 hover:-translate-y-2 transition-all duration-300 ${getTopicBorder(topic.title)} ${getTopicShadow(topic.title)} ${topic.locked ? "opacity-50 grayscale" : "cursor-pointer"}`}
             >
               <div>
                 <div className="flex justify-between items-center mb-6">
