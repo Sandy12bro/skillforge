@@ -28,7 +28,10 @@ export default function ContinueLearning() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {filteredTopics.length > 0 ? (
           filteredTopics.map((topic, i) => (
-            <div key={i} className={`neo-card p-8 flex flex-col justify-between hover:bg-black/5 dark:hover:bg-white/5 hover:-translate-y-2 transition-all duration-300 ${getTopicBorder(topic.title)} ${topic.locked ? "opacity-50 grayscale" : "cursor-pointer"}`}>
+            <div 
+              key={i} 
+              className={`neo-card p-8 flex flex-col justify-between hover:bg-black/5 dark:hover:bg-white/5 hover:-translate-y-2 hover:shadow-[10px_10px_0px_#000] dark:hover:shadow-[10px_10px_0px_#ca8a04] transition-all duration-300 ${getTopicBorder(topic.title)} ${topic.locked ? "opacity-50 grayscale" : "cursor-pointer"}`}
+            >
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h3 className="font-black text-xl uppercase tracking-tighter">{topic.title}</h3>
