@@ -61,7 +61,10 @@ export default function CodePlayground() {
     }
 
     // 2. High Priority: Explicitly configured URL
-    if (configuredApiBase) addBase(configuredApiBase);
+    if (configuredApiBase) {
+      addBase(configuredApiBase);
+      return Array.from(urls);
+    }
 
     // 3. Current Origins
     if (typeof window !== "undefined") {
