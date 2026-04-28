@@ -46,9 +46,11 @@ export default function CodePlayground() {
       if (normalized === "") {
         urls.add("/simulate");
         urls.add("/api/simulate");
+        urls.add("/run");
       } else {
         urls.add(`${normalized}/simulate`);
         urls.add(`${normalized}/api/simulate`);
+        urls.add(`${normalized}/run`);
       }
     };
 
