@@ -18,7 +18,6 @@ import DailyChallenge from "../../components/dashboard/DailyChallenge";
 import MentorSuggestions from "../../components/dashboard/MentorSuggestions";
 import ActivityFeed from "../../components/dashboard/ActivityFeed";
 import Leaderboard from "../../components/Leaderboard";
-import Sidebar from "../../components/Sidebar";
 import FeedbackSection from "../../components/dashboard/FeedbackSection";
 
 // Overlays
