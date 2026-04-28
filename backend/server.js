@@ -13,8 +13,11 @@ const User = require("./models/User");
 
 const app = express();
 
-// CORS configuration - Relaxed for cross-platform debugging
-app.use(cors());
+// CORS configuration - Allow frontend domain
+app.use(cors({
+  origin: ["https://codearena-team.vercel.app", "https://codearena-production-5b50.up.railway.app", "*"],
+  credentials: true
+}));
 
 // MongoDB connection
 const mongoUri = process.env.MONGODB_URI;
@@ -36,6 +39,16 @@ const router = express.Router();
 // Test Route
 router.get("/", (req, res) => {
   res.send("Backend is running");
+});
+
+// Run Route (for testing)
+router.post("/run", (req, res) => {
+  const { code, language } = req.body;
+  
+  return res.json({
+    output: "Backend is working",
+    received: { code, language }
+  });
 });
 
 // Simulation Route (Gemini Integration)
