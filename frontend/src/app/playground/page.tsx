@@ -43,22 +43,34 @@ export default function CodePlayground() {
     const urls = new Set<string>();
     const addBase = (base: string) => {
       const normalized = base.replace(/\/$/, "");
-      urls.add(`${normalized}/simulate`);
+      if (normalized === "") {
+        urls.add("/simulate");
+        urls.add("/api/simulate");
+      } else {
+        urls.add(`${normalized}/simulate`);
+        urls.add(`${normalized}/api/simulate`);
+      }
     };
 
-    if (configuredApiBase) addBase(configuredApiBase);
-    addBase("/api");
-    addBase("");
-    urls.add("/simulate");
-
+    // 1. Critical Localhost Priority
     if (typeof window !== "undefined") {
-      addBase(`${window.location.origin}/api`);
-      addBase(window.location.origin);
-
       if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
         addBase("http://localhost:5000");
+        addBase("http://127.0.0.1:5000");
       }
     }
+
+    // 2. High Priority: Explicitly configured URL
+    if (configuredApiBase) addBase(configuredApiBase);
+
+    // 3. Current Origins
+    if (typeof window !== "undefined") {
+      addBase(window.location.origin);
+    }
+
+    // 4. Relative Fallbacks
+    addBase("");
+    addBase("/api");
 
     return Array.from(urls);
   };
@@ -77,11 +89,14 @@ export default function CodePlayground() {
 
     try {
       const simulationUrls = buildSimulationUrls();
+      console.log(">>> [CodeArena] Attempting simulation with URLs:", simulationUrls);
+      
       let lastError: Error | null = null;
       let response: Response | null = null;
 
       for (const url of simulationUrls) {
         try {
+          console.log(`>>> [CodeArena] Trying: ${url}`);
           response = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -89,21 +104,26 @@ export default function CodePlayground() {
           });
 
           if (response.ok) {
+            console.log(`>>> [CodeArena] SUCCESS at: ${url}`);
             lastError = null;
-            break; // Success! Stop trying other URLs.
+            break;
           }
 
+          const status = response.status;
           const result = await response.json().catch(() => ({}));
-          lastError = new Error(result.error || `Simulation failed (${response.status}). Check backend/API availability.`);
-          response = null; // Mark as failed so we keep iterating
+          console.warn(`>>> [CodeArena] FAILED (${status}) at: ${url}`, result);
+          
+          lastError = new Error(result.error || `Simulation failed (${status})`);
+          response = null;
         } catch (attemptError: unknown) {
+          console.error(`>>> [CodeArena] NETWORK ERROR at: ${url}`, attemptError);
           lastError = attemptError instanceof Error ? attemptError : new Error("Network request failed");
           response = null;
         }
       }
 
       if (!response) {
-        throw lastError || new Error("Unable to reach simulation API");
+        throw lastError || new Error("Unable to reach simulation API after trying multiple endpoints.");
       }
 
       const result = await response.json();
@@ -111,7 +131,7 @@ export default function CodePlayground() {
       setTrace(result.trace || []);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Unknown error";
-      setError(`Simulation Error: ${message}. Check backend/API availability.`);
+      setError(`Simulation Error: ${message}. Check browser console (F12) for details.`);
     } finally {
       setIsRunning(false);
     }
