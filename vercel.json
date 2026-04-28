@@ -1,6 +1,7 @@
 {
   "version": 2,
   "name": "code-arena",
+  "outputDirectory": "frontend/out",
   "cleanUrls": true,
   "trailingSlash": false,
   "env": {
