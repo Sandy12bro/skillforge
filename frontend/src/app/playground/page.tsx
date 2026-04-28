@@ -11,6 +11,12 @@ import ExecutionVisualizer from "../../components/ExecutionVisualizer";
 import { useTheme } from "../../context/ThemeContext";
 
 export default function CodePlayground() {
+  type TraceStep = {
+    line: number;
+    message: string;
+    variables: Array<{ name: string; value: string }>;
+  };
+
   const { theme } = useTheme();
   const { logout } = useAuth();
   const router = useRouter();
@@ -24,7 +30,7 @@ export default function CodePlayground() {
   const [showVisualizer, setShowVisualizer] = useState(false);
   
   // Simulation State (AI Generated)
-  const [trace, setTrace] = useState<any[]>([]);
+  const [trace, setTrace] = useState<TraceStep[]>([]);
 
   // Constants
   const LANGUAGES = [
@@ -34,20 +40,27 @@ export default function CodePlayground() {
 
   const buildSimulationUrls = () => {
     const configuredApiBase = process.env.NEXT_PUBLIC_API_URL?.trim();
-    const bases = new Set<string>();
+    const urls = new Set<string>();
+    const addBase = (base: string) => {
+      const normalized = base.replace(/\/$/, "");
+      urls.add(`${normalized}/simulate`);
+    };
 
-    if (configuredApiBase) bases.add(configuredApiBase.replace(/\/$/, ""));
-    bases.add("/api");
+    if (configuredApiBase) addBase(configuredApiBase);
+    addBase("/api");
+    addBase("");
+    urls.add("/simulate");
 
     if (typeof window !== "undefined") {
-      bases.add(`${window.location.origin}/api`);
+      addBase(`${window.location.origin}/api`);
+      addBase(window.location.origin);
 
       if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-        bases.add("http://localhost:5000");
+        addBase("http://localhost:5000");
       }
     }
 
-    return Array.from(bases).map((base) => `${base}/simulate`);
+    return Array.from(urls);
   };
 
   const handleRun = async () => {
@@ -79,7 +92,7 @@ export default function CodePlayground() {
 
           const result = await response.json().catch(() => ({}));
           throw new Error(result.error || `Simulation failed (${response.status})`);
-        } catch (attemptError: any) {
+        } catch (attemptError: unknown) {
           lastError = attemptError instanceof Error ? attemptError : new Error("Network request failed");
           response = null;
         }
@@ -92,8 +105,9 @@ export default function CodePlayground() {
       const result = await response.json();
       setOutput(result.finalOutput || "Code executed successfully.");
       setTrace(result.trace || []);
-    } catch (err: any) {
-      setError(`Simulation Error: ${err.message}. Check backend/API availability.`);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Unknown error";
+      setError(`Simulation Error: ${message}. Check backend/API availability.`);
     } finally {
       setIsRunning(false);
     }
