@@ -1,6 +1,6 @@
 # 🚀 CodeArena
 
-> **Level up your coding skills with AI-powered learning and personalized roadmaps!**
+> **Neo-Brutalist learning platform for interactive coding education**
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Now-brightgreen?style=for-the-badge&logo=vercel)](https://codearena-team.vercel.app/)
 [![GitHub stars](https://img.shields.io/github/stars/Sandy12bro/codearena?style=for-the-badge&logo=github)](https://github.com/Sandy12bro/codearena)
@@ -8,16 +8,14 @@
 
 ## 🎯 What is CodeArena?
 
-CodeArena is your ultimate **AI-powered interactive coding learning and development platform** that combines:
--💻 Code Visualization – Understand code flow visually step-by-step.
--🐞 Debugger – Detect and fix errors easily.
--⚠️ Error Checker – Find syntax/runtime issues instantly.
--📘 Concept Learning Hub – Learn coding concepts with explanations.
--🏆 Gamification System – Earn XP by completing concepts/tasks.
--🎮 Playground – Practice coding freely.
--🥇 Leaderboard / Top Performers – Encourage competitive learning.
--📈 Progress Tracker – Monitor learning growth.
--🤖 AI Assistance – Get smart explanations and support.
+CodeArena is a **Neo-Brutalist interactive coding learning and development platform** that combines:
+- 🤖 **AI-Powered Code Simulation** - Step-by-step code execution visualization
+- 🎮 **Interactive Playground** - Practice coding with real-time feedback
+- 📊 **Personal Dashboard** - Track your learning progress and achievements
+- �️ **Learning Roadmaps** - Structured paths for skill development
+- 🏆 **Gamification System** - Earn XP and compete on leaderboards
+- 🔐 **Secure Authentication** - Firebase-based user management
+- 🎨 **Modern UI/UX** - Neo-brutalist design with responsive layout
 
 ---
 
@@ -26,11 +24,13 @@ CodeArena is your ultimate **AI-powered interactive coding learning and developm
 | Feature | Description | Tech Stack |
 |---------|-------------|-----------|
 | 🔐 **Secure Authentication** | Firebase-based login/signup | Firebase Auth |
-| 👤 **User Management** | Complete profile system | MongoDB |
-| 📊 **Personal Dashboard** | Track your progress | Vanilla JS |
-| 🎨 **Responsive Design** | Works on all devices | CSS3 |
-| ⚡ **Real-time Updates** | Instant feedback system | Express.js |
-| 🛡️ **Data Security** | Encrypted user data | Mongoose |
+| 👤 **User Management** | Complete profile system with MongoDB | MongoDB & Mongoose |
+| 📊 **Personal Dashboard** | Track your learning progress | Next.js & React |
+| � **Code Playground** | Interactive coding environment | Next.js API Routes |
+| 🤖 **AI Code Simulation** | Step-by-step code execution | Gemini API |
+| 🗺️ **Learning Roadmaps** | Structured skill development paths | Next.js |
+| 🏆 **Gamification** | XP system and leaderboards | MongoDB |
+| 🎨 **Neo-Brutalist Design** | Modern, bold UI/UX | Tailwind CSS |
 
 ---
 
@@ -42,9 +42,10 @@ CodeArena is your ultimate **AI-powered interactive coding learning and developm
 ### 🛠️ Local Development
 
 #### Prerequisites
-- [Node.js](https://nodejs.org/) (v14 or higher)
+- [Node.js](https://nodejs.org/) (v18 or higher)
 - [MongoDB](https://www.mongodb.com/) (local or Atlas)
 - [Firebase Project](https://console.firebase.google.com/)
+- [Gemini API Key](https://makersuite.google.com/app/apikey) (for AI features)
 
 #### 🎯 Setup in 3 Steps
 
@@ -58,16 +59,19 @@ cd codearena
 ```bash
 cd backend
 npm install
-cp .env.example .env  # Configure your environment
+cp .env.example .env  # Configure your environment variables
 npm start
 ```
 
 **3. Frontend Setup**
 ```bash
-cd ../frontend
-# Configure Firebase in firebase.js
-# Open index.html in your browser
+cd frontend
+npm install
+cp .env.example .env.local  # Configure your environment variables
+npm run dev
 ```
+
+The application will be available at `http://localhost:3000`
 
 ---
 
@@ -75,29 +79,56 @@ cd ../frontend
 
 ```
 codearena/
-├── 📂 frontend/          # React-like frontend
-│   ├── 🎨 index.html     # Main landing page
-│   ├── 🔐 login.html     # Authentication
-│   ├── 📊 dashboard.html # User dashboard
-│   ├── 👤 profile.html   # Profile management
-│   └── 🎯 signup.html    # Registration
-├── 📂 backend/           # Node.js API
-│   ├── ⚡ server.js       # Express server
-│   ├── 🗄️ models/        # MongoDB models
-│   └── 🔧 package.json   # Dependencies
-└── 📚 Documentation
+├── 📂 frontend/          # Next.js frontend application
+│   ├── 📂 src/
+│   │   ├── 📂 app/          # Next.js app directory
+│   │   │   ├── 🎮 playground/    # Code playground
+│   │   │   ├── 📊 dashboard/     # User dashboard
+│   │   │   ├── 🔐 login/          # Authentication
+│   │   │   ├── � profile/        # Profile management
+│   │   │   ├── 🗺️ roadmap/        # Learning roadmaps
+│   │   │   ├── 🤖 ai-tools/       # AI-powered tools
+│   │   │   ├── � api/           # API routes
+│   │   │   └── 📄 page.tsx        # Home page
+│   │   ├── 📂 components/    # Reusable components
+│   │   ├── 📂 context/        # React context providers
+│   │   ├── 📂 lib/            # Utility functions
+│   │   └── 📂 data/           # Static data
+│   ├── � globals.css         # Global styles
+│   ├── ⚙️ next.config.ts       # Next.js configuration
+│   ├── 📦 package.json         # Frontend dependencies
+│   └── 🔧 .env.example         # Environment variables template
+├── 📂 backend/           # Node.js API server
+│   ├── ⚡ server.js            # Express server
+│   ├── 🗄️ models/             # MongoDB models
+│   ├── 🛠️ utils/              # Utility functions
+│   ├── � package.json         # Backend dependencies
+│   └── � .env.example         # Environment variables template
+├── 📄 vercel.json         # Vercel deployment config
+├── 📄 README.md           # This file
+└── 📄 LICENSE             # MIT License
 ```
 
 ---
 
 ## 🔌 API Documentation
 
-### Authentication Endpoints
+### Frontend API Routes (Next.js)
 ```http
-POST /api/signup     # Register new user
-GET  /api/user/:email # Get user profile
-PUT  /api/user/:email # Update profile
-POST /api/update-profile # Quick profile update
+POST /api/simulate     # AI-powered code simulation
+POST /api/run          # Simple code execution
+GET  /api/*            # Next.js API routes
+```
+
+### Backend API Routes (Express)
+```http
+POST /signup          # Register new user
+POST /sync-user       # Sync user from Firebase
+GET  /user/:email     # Get user profile
+PUT  /user/:email     # Update profile
+POST /update-profile  # Quick profile update
+POST /run             # Code execution endpoint
+POST /simulate        # Advanced code simulation
 ```
 
 ### Response Format
@@ -114,20 +145,24 @@ POST /api/update-profile # Quick profile update
 ## 🛠️ Tech Stack
 
 ### Frontend Technologies
-- **HTML5** - Semantic markup
-- **CSS3** - Modern styling with animations
-- **JavaScript ES6+** - Modern web development
+- **Next.js 14** - React framework with App Router
+- **React 18** - UI library
+- **TypeScript** - Type-safe JavaScript
+- **Tailwind CSS** - Utility-first CSS framework
 - **Firebase** - Authentication & real-time features
+- **Gemini API** - AI-powered code simulation
 
 ### Backend Technologies
 - **Node.js** - Runtime environment
 - **Express.js** - Web framework
 - **MongoDB** - NoSQL database
 - **Mongoose** - ODM for MongoDB
+- **CORS** - Cross-origin resource sharing
 
 ### Deployment
-- **Vercel** - Frontend hosting
-- **Serverless Functions** - Backend API
+- **Vercel** - Frontend hosting & deployment
+- **Railway** - Backend hosting (alternative)
+- **Serverless Functions** - Next.js API routes
 
 ---
 
@@ -136,10 +171,11 @@ POST /api/update-profile # Quick profile update
 [![CodeArena Demo](https://img.shields.io/badge/Try%20Demo-Live%20Now-orange?style=for-the-badge&logo=vercel)](https://codearena-team.vercel.app/)
 
 **Experience CodeArena in action**:
-1. ✅ Create your account
-2. 🎯 Set your learning goals
-3. 📊 Track your progress
-4. 🏆 Unlock achievements
+1. ✅ **Create your account** with Firebase authentication
+2. � **Try the code playground** with real-time simulation
+3. 📊 **Explore your dashboard** with progress tracking
+4. 🗺️ **Follow learning roadmaps** for structured development
+5. 🏆 **Compete on leaderboards** with gamified learning
 
 ---
 
@@ -150,14 +186,8 @@ We love contributions! Here's how you can help:
 1. 🍴 **Fork** this repository
 2. 🌿 **Create** a feature branch: `git checkout -b feature/amazing-feature`
 3. 💾 **Commit** your changes: `git commit -m 'Add amazing feature'`
-4. 📤 **Push** to the branch: `git push origin feature/amazing-feature`
+4. 📤 **Push** to the branch: `git push origin feature-amazing-feature`
 5. 🔃 **Open** a Pull Request
-
-### 👥 Development Team
-- **Team Leader** - Sanskar Bhasme
-- **Frontend** - Prachi Jadhav & Bhakti Mandal
-- **Backend** - Sneha Jain
-- **DevOps** - Sanskar Bhasme
 
 ---
 
