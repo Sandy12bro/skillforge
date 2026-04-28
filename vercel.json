@@ -4,12 +4,6 @@
   "outputDirectory": "frontend/out",
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/backend/server.js"
-    }
-  ],
   "env": {
     "NODE_ENV": "production"
   }
